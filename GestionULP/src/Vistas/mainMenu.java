@@ -53,6 +53,11 @@ public class mainMenu extends javax.swing.JFrame {
         jMenu2.setText("Materia");
 
         FormularioMateriaJM.setText("Formulario de Materia");
+        FormularioMateriaJM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FormularioMateriaJMActionPerformed(evt);
+            }
+        });
         jMenu2.add(FormularioMateriaJM);
 
         jMenuBar1.add(jMenu2);
@@ -101,15 +106,24 @@ public class mainMenu extends javax.swing.JFrame {
     private void FormularioAlumnpoJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormularioAlumnpoJMActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        FormularioAlumnoIF fmif = new FormularioAlumnoIF();
-        fmif.setVisible(true);
-        Escritorio.add(fmif);
-        Escritorio.moveToFront(fmif);
+        FormularioAlumnoIF faif = new FormularioAlumnoIF();
+        faif.setVisible(true);
+        Escritorio.add(faif);
+        Escritorio.moveToFront(faif);
     }//GEN-LAST:event_FormularioAlumnpoJMActionPerformed
 
     private void SalirJMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalirJMMouseClicked
         this.dispose();
     }//GEN-LAST:event_SalirJMMouseClicked
+
+    private void FormularioMateriaJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormularioMateriaJMActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        FormularioMateriaIF fmif = new FormularioMateriaIF();
+        fmif.setVisible(true);
+        Escritorio.add(fmif);
+        Escritorio.moveToFront(fmif);
+    }//GEN-LAST:event_FormularioMateriaJMActionPerformed
 
     
     public static void main(String args[]) {

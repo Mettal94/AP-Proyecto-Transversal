@@ -33,6 +33,7 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Formulario de Alumnos");
+        setMinimumSize(new java.awt.Dimension(558, 452));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -41,9 +42,10 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
 
         DniT.setBackground(new java.awt.Color(255, 255, 255));
 
-        BuscarB.setBackground(new java.awt.Color(255, 255, 255));
+        BuscarB.setBackground(new java.awt.Color(0, 153, 102));
         BuscarB.setForeground(new java.awt.Color(0, 0, 0));
         BuscarB.setText("Buscar");
+        BuscarB.setToolTipText("");
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -65,15 +67,19 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
 
         NombreT.setBackground(new java.awt.Color(255, 255, 255));
 
-        EstadoB.setBackground(new java.awt.Color(255, 255, 255));
+        EstadoB.setBackground(new java.awt.Color(0, 153, 102));
         EstadoB.setForeground(new java.awt.Color(0, 0, 0));
 
+        NuevoB.setBackground(new java.awt.Color(0, 153, 102));
         NuevoB.setText("Nuevo");
 
+        EliminarB.setBackground(new java.awt.Color(0, 153, 102));
         EliminarB.setText("Eliminar");
 
+        GuardarB.setBackground(new java.awt.Color(0, 153, 102));
         GuardarB.setText("Guardar");
 
+        SalirB.setBackground(new java.awt.Color(0, 153, 102));
         SalirB.setText("Salir");
         SalirB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -23,7 +23,7 @@
 hs_err_pid*
 replay_pid*
 
-/nbproject/private/
-/build/
-/dist/
-/test/
+/GestionULP/nbproject/private/
+/GestionULP/build/
+/GestionULP/dist/
+/GestionULP/test/

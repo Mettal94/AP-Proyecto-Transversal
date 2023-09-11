@@ -85,6 +85,11 @@ public class mainMenu extends javax.swing.JFrame {
         jMenu4.setText("Consultas");
 
         AlumnosPorMateriasJM.setText("Alumnos por Materia");
+        AlumnosPorMateriasJM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AlumnosPorMateriasJMActionPerformed(evt);
+            }
+        });
         jMenu4.add(AlumnosPorMateriasJM);
 
         jMenuBar1.add(jMenu4);
@@ -152,6 +157,15 @@ public class mainMenu extends javax.swing.JFrame {
         Escritorio.add(noif);
         Escritorio.moveToFront(noif);
     }//GEN-LAST:event_ManipulacionNotasJMActionPerformed
+
+    private void AlumnosPorMateriasJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlumnosPorMateriasJMActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        AlumnosPorMateriaIF apmif = new AlumnosPorMateriaIF();
+        apmif.setVisible(true);
+        Escritorio.add(apmif);
+        Escritorio.moveToFront(apmif);
+    }//GEN-LAST:event_AlumnosPorMateriasJMActionPerformed
 
     
     public static void main(String args[]) {

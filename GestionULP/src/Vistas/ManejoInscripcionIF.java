@@ -83,6 +83,11 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
 
         SalirB.setBackground(new java.awt.Color(0, 153, 102));
         SalirB.setText("Salir");
+        SalirB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,6 +152,10 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SalirBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirBActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_SalirBActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

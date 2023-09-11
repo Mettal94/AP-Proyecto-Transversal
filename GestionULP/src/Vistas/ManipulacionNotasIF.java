@@ -55,6 +55,11 @@ public class ManipulacionNotasIF extends javax.swing.JInternalFrame {
 
         SalirB2.setBackground(new java.awt.Color(0, 153, 102));
         SalirB2.setText("Salir");
+        SalirB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalirB2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,7 +72,6 @@ public class ManipulacionNotasIF extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(GuardarB)
                                 .addGap(159, 159, 159)
                                 .addComponent(SalirB2)))
@@ -96,6 +100,10 @@ public class ManipulacionNotasIF extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SalirB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirB2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_SalirB2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

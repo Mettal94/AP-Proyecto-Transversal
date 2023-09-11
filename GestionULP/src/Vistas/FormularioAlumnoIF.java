@@ -33,6 +33,7 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Formulario de Alumnos");
+        setMaximumSize(new java.awt.Dimension(558, 452));
         setMinimumSize(new java.awt.Dimension(558, 452));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));

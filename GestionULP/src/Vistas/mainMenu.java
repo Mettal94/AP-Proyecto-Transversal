@@ -65,9 +65,19 @@ public class mainMenu extends javax.swing.JFrame {
         jMenu3.setText("Administracion");
 
         ManejoInscripcionJM.setText("Manejo de Inscripciones");
+        ManejoInscripcionJM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ManejoInscripcionJMActionPerformed(evt);
+            }
+        });
         jMenu3.add(ManejoInscripcionJM);
 
         ManipulacionNotasJM.setText("Manipulacion de Notas");
+        ManipulacionNotasJM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ManipulacionNotasJMActionPerformed(evt);
+            }
+        });
         jMenu3.add(ManipulacionNotasJM);
 
         jMenuBar1.add(jMenu3);
@@ -124,6 +134,24 @@ public class mainMenu extends javax.swing.JFrame {
         Escritorio.add(fmif);
         Escritorio.moveToFront(fmif);
     }//GEN-LAST:event_FormularioMateriaJMActionPerformed
+
+    private void ManejoInscripcionJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManejoInscripcionJMActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        ManejoInscripcionIF miif = new ManejoInscripcionIF();
+        miif.setVisible(true);
+        Escritorio.add(miif);
+        Escritorio.moveToFront(miif);
+    }//GEN-LAST:event_ManejoInscripcionJMActionPerformed
+
+    private void ManipulacionNotasJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManipulacionNotasJMActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        ManipulacionNotasIF noif = new ManipulacionNotasIF();
+        noif.setVisible(true);
+        Escritorio.add(noif);
+        Escritorio.moveToFront(noif);
+    }//GEN-LAST:event_ManipulacionNotasJMActionPerformed
 
     
     public static void main(String args[]) {

@@ -30,6 +30,7 @@ public class FormularioMateriaIF extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Formulario de Materias");
+        setMaximumSize(new java.awt.Dimension(558, 452));
         setMinimumSize(new java.awt.Dimension(558, 452));
         setPreferredSize(new java.awt.Dimension(558, 452));
 

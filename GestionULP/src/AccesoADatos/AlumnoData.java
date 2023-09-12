@@ -144,13 +144,13 @@ public class AlumnoData {
             ps.setInt(5, alumno.getIdAlumno());
             
             int exito = ps.executeUpdate();
-            if(exito == 1){
+            if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Alumno modificado exitosamente.");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "El alumno no existe.");
             }
-        }catch(SQLException ex){
-               JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno "+ex.getMessage());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno " + ex.getMessage());
         }
     }
     

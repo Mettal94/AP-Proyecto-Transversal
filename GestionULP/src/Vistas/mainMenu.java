@@ -1,10 +1,13 @@
 package Vistas;
 
+import AccesoADatos.Conexion;
+
 public class mainMenu extends javax.swing.JFrame {
 
     
     public mainMenu() {
         initComponents();
+        Conexion.getConexion();
     }
 
     
@@ -20,6 +23,7 @@ public class mainMenu extends javax.swing.JFrame {
         FormularioMateriaJM = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         ManejoInscripcionJM = new javax.swing.JMenuItem();
+        ManejoAlumnosJM = new javax.swing.JMenuItem();
         ManipulacionNotasJM = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         AlumnosPorMateriasJM = new javax.swing.JMenuItem();
@@ -71,6 +75,14 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
         jMenu3.add(ManejoInscripcionJM);
+
+        ManejoAlumnosJM.setText("Manejo de Alumos");
+        ManejoAlumnosJM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ManejoAlumnosJMActionPerformed(evt);
+            }
+        });
+        jMenu3.add(ManejoAlumnosJM);
 
         ManipulacionNotasJM.setText("Manipulacion de Notas");
         ManipulacionNotasJM.addActionListener(new java.awt.event.ActionListener() {
@@ -167,6 +179,15 @@ public class mainMenu extends javax.swing.JFrame {
         Escritorio.moveToFront(apmif);
     }//GEN-LAST:event_AlumnosPorMateriasJMActionPerformed
 
+    private void ManejoAlumnosJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManejoAlumnosJMActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        ManejoDeAlumnos mdaif = new ManejoDeAlumnos();
+        mdaif.setVisible(true);
+        Escritorio.add(mdaif);
+        Escritorio.moveToFront(mdaif);
+    }//GEN-LAST:event_ManejoAlumnosJMActionPerformed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -205,6 +226,7 @@ public class mainMenu extends javax.swing.JFrame {
     private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenuItem FormularioAlumnpoJM;
     private javax.swing.JMenuItem FormularioMateriaJM;
+    private javax.swing.JMenuItem ManejoAlumnosJM;
     private javax.swing.JMenuItem ManejoInscripcionJM;
     private javax.swing.JMenuItem ManipulacionNotasJM;
     private javax.swing.JMenu SalirJM;

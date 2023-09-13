@@ -1,5 +1,13 @@
 package Vistas;
 
+import Entidades.Alumno;
+import AccesoADatos.AlumnoData;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import javax.swing.JOptionPane;
+
+
 public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
 
     
@@ -14,16 +22,11 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         DniT = new javax.swing.JTextField();
-        BuscarB = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         ApellidoT = new javax.swing.JTextField();
         NombreT = new javax.swing.JTextField();
-        EstadoB = new javax.swing.JRadioButton();
-        NuevoB = new javax.swing.JButton();
-        EliminarB = new javax.swing.JButton();
         GuardarB = new javax.swing.JButton();
         SalirB = new javax.swing.JButton();
         FechaNacimiento = new com.toedter.calendar.JDateChooser();
@@ -43,11 +46,6 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
 
         DniT.setBackground(new java.awt.Color(255, 255, 255));
 
-        BuscarB.setBackground(new java.awt.Color(0, 153, 102));
-        BuscarB.setForeground(new java.awt.Color(0, 0, 0));
-        BuscarB.setText("Buscar");
-        BuscarB.setToolTipText("");
-
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Apellido:");
@@ -55,10 +53,6 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nombre:");
-
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Estado:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -68,17 +62,13 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
 
         NombreT.setBackground(new java.awt.Color(255, 255, 255));
 
-        EstadoB.setBackground(new java.awt.Color(0, 153, 102));
-        EstadoB.setForeground(new java.awt.Color(0, 0, 0));
-
-        NuevoB.setBackground(new java.awt.Color(0, 153, 102));
-        NuevoB.setText("Nuevo");
-
-        EliminarB.setBackground(new java.awt.Color(0, 153, 102));
-        EliminarB.setText("Eliminar");
-
         GuardarB.setBackground(new java.awt.Color(0, 153, 102));
         GuardarB.setText("Guardar");
+        GuardarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarBActionPerformed(evt);
+            }
+        });
 
         SalirB.setBackground(new java.awt.Color(0, 153, 102));
         SalirB.setText("Salir");
@@ -100,69 +90,50 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
+                            .addComponent(GuardarB))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addComponent(NuevoB)))
-                        .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 8, Short.MAX_VALUE)
-                                        .addComponent(EliminarB)
-                                        .addGap(46, 46, 46)
-                                        .addComponent(GuardarB)
-                                        .addGap(43, 43, 43))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(DniT, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                            .addComponent(ApellidoT, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(NombreT, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(BuscarB, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(SalirB, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(58, 58, 58))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(EstadoB)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(44, 44, 44)
+                                .addComponent(DniT, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(SalirB))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(FechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel2)
+                        .addGap(67, 67, 67)
+                        .addComponent(ApellidoT, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(NombreT, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addGap(18, 18, 18)
+                            .addComponent(FechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 188, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(DniT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BuscarB))
-                .addGap(18, 18, 18)
+                    .addComponent(DniT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ApellidoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(27, 27, 27)
+                    .addComponent(jLabel2)
+                    .addComponent(ApellidoT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NombreT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(EstadoB)
-                    .addComponent(jLabel4))
-                .addGap(30, 30, 30)
+                    .addComponent(jLabel3)
+                    .addComponent(NombreT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(FechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NuevoB)
-                    .addComponent(EliminarB)
                     .addComponent(GuardarB)
                     .addComponent(SalirB))
                 .addGap(45, 45, 45))
@@ -175,22 +146,39 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_SalirBActionPerformed
 
+    private void GuardarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarBActionPerformed
+        try{
+            int dni = Integer.parseInt(DniT.getText());
+            String apellido = ApellidoT.getText();
+            String nombre = NombreT.getText();
+            java.util.Date fechaX = FechaNacimiento.getDate();
+            LocalDate fecha = fechaX.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            boolean estado = true;
+            if (DniT.getText().isEmpty() || NombreT.getText().isEmpty() || FechaNacimiento.getDate().toString().isEmpty()){
+                JOptionPane.showMessageDialog(null, "No se pueden almacenar campos vacios");
+                return;
+            } else {
+                Alumno alumno = new Alumno(dni, apellido, nombre, fecha, estado);
+                AlumnoData x = new AlumnoData();
+                x.guardarAlumno(alumno);
+            }
+            
+            
+        }catch(NumberFormatException ex){}
+        
+    }//GEN-LAST:event_GuardarBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ApellidoT;
-    private javax.swing.JButton BuscarB;
     private javax.swing.JTextField DniT;
-    private javax.swing.JButton EliminarB;
-    private javax.swing.JRadioButton EstadoB;
     private com.toedter.calendar.JDateChooser FechaNacimiento;
     private javax.swing.JButton GuardarB;
     private javax.swing.JTextField NombreT;
-    private javax.swing.JButton NuevoB;
     private javax.swing.JButton SalirB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
 }

@@ -30,7 +30,7 @@ public class MateriaData {
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                materia.setIdMateria(rs.getInt("idMateria"));
+                materia.setIdMateria(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Materia añadida con éxito");
             }
             ps.close();

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Conexion {
-    private static final String URL="JDBC:mariadb://localhost/";
+    private static final String URL="jdbc:mariadb://localhost/";
     private static final String DB="universidadulp";
     private static final String USER="root";
     private static final String PASSWORD="";
@@ -22,7 +22,7 @@ public class Conexion {
         
         try {
             Class.forName("org.mariadb.jdbc.Driver");
-            con = DriverManager.getConnection(URL+DB+USER+PASSWORD);     
+            con = DriverManager.getConnection(URL+DB,USER,PASSWORD);     
         }catch (ClassNotFoundException e){
             JOptionPane.showMessageDialog(null, "Error Driver");
         } catch (SQLException e) {

@@ -33,11 +33,11 @@ public class AlumnoData {
             ps.setBoolean(5, alumno.isEstado());
             
             ps.executeUpdate();
-            
+            System.out.println(ps.getGeneratedKeys().toString());
             ResultSet rs = ps.getGeneratedKeys();
-            
+           
             if(rs.next()){
-                alumno.setIdAlumno(rs.getInt("idAlumno"));
+                
                 
                 JOptionPane.showMessageDialog(null, "Alumno añadido con éxito");
             }

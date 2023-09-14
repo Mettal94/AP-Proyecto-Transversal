@@ -5,17 +5,22 @@
  */
 package Vistas;
 
+import AccesoADatos.AlumnoData;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ariel
  */
 public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
-
+private DefaultTableModel modelo = new DefaultTableModel();
     /**
      * Creates new form ManejoDeAlumnos
      */
     public ManejoDeAlumnos() {
         initComponents();
+        armarCabecera();
     }
 
     /**
@@ -137,4 +142,24 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
+   public void listar(){
+      AlumnoData list = new AlumnoData();
+      if(jRadioButton1.isSelected()){
+          list.listarAlumno(1);
+      }else{
+          list.listarAlumno(0);
+      }
+      
+    }
+ 
+public void armarCabecera(){
+    modelo.addColumn("id");
+    modelo.addColumn("DNI");
+    modelo.addColumn("Apellido");
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Fecha Nacimiento");
+    modelo.addColumn("Estado");
+    jTable.setModel(modelo);
+}
+
 }

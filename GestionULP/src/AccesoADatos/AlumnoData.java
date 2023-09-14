@@ -105,22 +105,27 @@ public class AlumnoData {
         return alumno;
     }
     
-    public List <Alumno> listarAlumno(){
+    public List <Alumno> listarAlumno(int estado){
         List <Alumno> alumnos = new ArrayList<>();
         
         try{
-            String sql = "SELECT * FROM alumno WHERE estado = 1";
-            PreparedStatement ps = con.prepareStatement(sql);
+            String sql = "SELECT * FROM alumno WHERE estado = ?";
+            PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, estado);
             ResultSet rs = ps.executeQuery();
             
             while(rs.next()){
                 Alumno alumno = new Alumno();
-                alumno.setIdAlumno(rs.getInt("idAlumno"));
-                alumno.setDni(rs.getInt("dni"));
-                alumno.setApellido(rs.getString("apellido"));
-                alumno.setNombre(rs.getString("nombre"));
-                alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
-                alumno.setEstado(true);
+                alumno.setIdAlumno(rs.getInt(1));
+                alumno.setDni(rs.getInt(2));
+                alumno.setApellido(rs.getString(3));
+                alumno.setNombre(rs.getString(4));
+                alumno.setFechaNacimiento(rs.getDate(5).toLocalDate());
+                if(estado ==1){
+                    alumno.setEstado(true);
+                }else{
+                    alumno.setEstado(false);
+                }
                 
                 alumnos.add(alumno);
             }

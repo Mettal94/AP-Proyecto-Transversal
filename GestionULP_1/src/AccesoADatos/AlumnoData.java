@@ -35,9 +35,9 @@ public class AlumnoData {
             ps.executeUpdate();
             
             ResultSet rs = ps.getGeneratedKeys();
-           /// acá anda
+            
             if(rs.next()){
-                alumno.setIdAlumno(rs.getInt(1));
+                alumno.setIdAlumno(rs.getInt("idAlumno"));
                 
                 JOptionPane.showMessageDialog(null, "Alumno añadido con éxito");
             }

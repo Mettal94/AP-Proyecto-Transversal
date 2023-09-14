@@ -6,6 +6,8 @@
 package Vistas;
 
 import AccesoADatos.AlumnoData;
+import Entidades.Alumno;
+import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -144,6 +146,7 @@ private DefaultTableModel modelo = new DefaultTableModel();
     // End of variables declaration//GEN-END:variables
    public void listar(){
       AlumnoData list = new AlumnoData();
+      ArrayList <Alumno> lista = new ArrayList <>();
       if(jRadioButton1.isSelected()){
           list.listarAlumno(1);
       }else{

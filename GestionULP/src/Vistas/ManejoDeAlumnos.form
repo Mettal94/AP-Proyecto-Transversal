@@ -73,7 +73,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="NuevoB" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="EstadoRB" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="EstadoRB" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="29" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="276" max="-2" attributes="0"/>
@@ -157,11 +157,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Cambiar Estado"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="NuevoB">
       <Properties>
         <Property name="text" type="java.lang.String" value="Agregar Nuevo Alumno"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NuevoBActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -169,6 +175,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="EstadoRB">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EstadoRBActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

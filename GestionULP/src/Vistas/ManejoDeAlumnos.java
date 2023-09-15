@@ -12,17 +12,17 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-
 public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
-private DefaultTableModel modelo = new DefaultTableModel(){
-    public boolean isCellEditable(int f, int c) {
+
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
             return false;
         }
-};
+    };
 
-AlumnoData list = new AlumnoData();
-List <Alumno> lista = new ArrayList <>();
-    
+    AlumnoData ad = new AlumnoData();
+    List<Alumno> lista = new ArrayList<>();
+
     public ManejoDeAlumnos() {
         initComponents();
         armarCabecera();
@@ -82,10 +82,26 @@ List <Alumno> lista = new ArrayList <>();
         ModificarB.setText("Modificar");
 
         Eliminar.setText("Cambiar Estado");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
 
         NuevoB.setText("Agregar Nuevo Alumno");
+        NuevoB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NuevoBActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Estado");
+
+        EstadoRB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EstadoRBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,6 +155,23 @@ List <Alumno> lista = new ArrayList <>();
         this.dispose();
     }//GEN-LAST:event_SalirBActionPerformed
 
+    private void EstadoRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstadoRBActionPerformed
+        // Filtrar lista de alumnos
+        listar();
+    }//GEN-LAST:event_EstadoRBActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        // Botón de eliminar alumno
+        int fila = AlumnosTabla.getSelectedRow();
+        int id = (int) AlumnosTabla.getValueAt(fila, 0);
+        ad.eliminarAlumno(id);
+        listar();
+    }//GEN-LAST:event_EliminarActionPerformed
+
+    private void NuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoBActionPerformed
+        // Boton para agregar un alumno nuevo
+    }//GEN-LAST:event_NuevoBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable AlumnosTabla;
@@ -150,38 +183,38 @@ List <Alumno> lista = new ArrayList <>();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-   public void listar(){
-       //Método para rellenar la tabla
-      borrarFilas();
-      String est;
-      if(EstadoRB.isSelected()){
-          lista = list.listarAlumno(1);
-          est = "Activo";
-      }else{
-         lista =  list.listarAlumno(0);
-         est = "Inactivo";
-      }
-       for (Alumno alumno : lista) {
-           modelo.addRow(new Object[] {alumno.getIdAlumno(),alumno.getDni(),alumno.getApellido(),alumno.getNombre(),alumno.getFechaNacimiento().toString(),est});
-       
-       }
+   public void listar() {
+        //Método para rellenar la tabla
+        borrarFilas();
+        String est;
+        if (EstadoRB.isSelected()) {
+            lista = ad.listarAlumno(1);
+            est = "Activo";
+        } else {
+            lista = ad.listarAlumno(0);
+            est = "Inactivo";
+        }
+        for (Alumno alumno : lista) {
+            modelo.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(), alumno.getNombre(), alumno.getFechaNacimiento().toString(), est});
+
+        }
     }
-   
+
     private void borrarFilas() {
         int f = AlumnosTabla.getRowCount() - 1;
         for (; f >= 0; f--) {
             modelo.removeRow(f);
         }
     }
- 
-public void armarCabecera(){
-    modelo.addColumn("id");
-    modelo.addColumn("DNI");
-    modelo.addColumn("Apellido");
-    modelo.addColumn("Nombre");
-    modelo.addColumn("Fecha Nacimiento");
-    modelo.addColumn("Estado");
-    AlumnosTabla.setModel(modelo);
-}
+
+    public void armarCabecera() {
+        modelo.addColumn("id");
+        modelo.addColumn("DNI");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Fecha Nacimiento");
+        modelo.addColumn("Estado");
+        AlumnosTabla.setModel(modelo);
+    }
 
 }

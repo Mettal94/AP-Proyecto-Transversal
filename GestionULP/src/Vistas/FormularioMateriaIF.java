@@ -2,6 +2,7 @@ package Vistas;
 
 import AccesoADatos.MateriaData;
 import Entidades.Materia;
+import static Vistas.mainMenu.mensaje;
 
 public class FormularioMateriaIF extends javax.swing.JInternalFrame {
 
@@ -98,7 +99,7 @@ public class FormularioMateriaIF extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(GuardarB)
                     .addComponent(SalirB))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -110,14 +111,19 @@ public class FormularioMateriaIF extends javax.swing.JInternalFrame {
 
     private void GuardarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarBActionPerformed
         // Boton de guardar materia
-        String nombre = NombreT.getText();
-        int anio = Integer.parseInt(AñoT.getText());
-        boolean estado = true;
-        Materia materia = new Materia(nombre,anio,estado);
-        MateriaData md = new MateriaData();
-        md.guardarMateria(materia);
-        
-        //comentario de cambio
+        try{
+            String nombre = NombreT.getText();
+            int anio = Integer.parseInt(AñoT.getText());
+            boolean estado = true;
+            Materia materia = new Materia(nombre,anio,estado);
+            MateriaData md = new MateriaData();
+            md.guardarMateria(materia);
+        } catch (NumberFormatException ex) {
+            mensaje("Hay campos vacíos o valores mal ingresados, revisar el formulario."+ex.getMessage());
+        } catch(NullPointerException ex){
+            mensaje("Hay campos vacíos o valores mal ingresados, revisar el formulario."+ex.getMessage());
+        }
+       
     }//GEN-LAST:event_GuardarBActionPerformed
 
 

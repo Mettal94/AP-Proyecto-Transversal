@@ -8,21 +8,27 @@ package Vistas;
 import AccesoADatos.AlumnoData;
 import Entidades.Alumno;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ariel
- */
+
 public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
-private DefaultTableModel modelo = new DefaultTableModel();
-    /**
-     * Creates new form ManejoDeAlumnos
-     */
+private DefaultTableModel modelo = new DefaultTableModel(){
+    public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+};
+
+AlumnoData list = new AlumnoData();
+List <Alumno> lista = new ArrayList <>();
+    
     public ManejoDeAlumnos() {
         initComponents();
         armarCabecera();
+        EstadoRB.setSelected(true);
+        listar();
+        //Con las últimas dos líneas, cuando se abra la ventana, se llenará la tabla con los alumnos activos
     }
 
     /**
@@ -35,13 +41,13 @@ private DefaultTableModel modelo = new DefaultTableModel();
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
+        AlumnosTabla = new javax.swing.JTable();
         SalirB = new javax.swing.JButton();
         ModificarB = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
         NuevoB = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        EstadoRB = new javax.swing.JRadioButton();
 
         setBackground(new java.awt.Color(0, 153, 102));
         setClosable(true);
@@ -52,7 +58,7 @@ private DefaultTableModel modelo = new DefaultTableModel();
         setMinimumSize(new java.awt.Dimension(558, 452));
         setPreferredSize(new java.awt.Dimension(558, 452));
 
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
+        AlumnosTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -63,7 +69,7 @@ private DefaultTableModel modelo = new DefaultTableModel();
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable);
+        jScrollPane1.setViewportView(AlumnosTabla);
 
         SalirB.setBackground(new java.awt.Color(0, 153, 102));
         SalirB.setText("Salir");
@@ -103,7 +109,7 @@ private DefaultTableModel modelo = new DefaultTableModel();
                 .addGap(29, 29, 29)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jRadioButton1)
+                .addComponent(EstadoRB)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(NuevoB)
                 .addContainerGap())
@@ -115,7 +121,7 @@ private DefaultTableModel modelo = new DefaultTableModel();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NuevoB)
                     .addComponent(jLabel1)
-                    .addComponent(jRadioButton1))
+                    .addComponent(EstadoRB))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -135,24 +141,37 @@ private DefaultTableModel modelo = new DefaultTableModel();
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable AlumnosTabla;
     private javax.swing.JButton Eliminar;
+    private javax.swing.JRadioButton EstadoRB;
     private javax.swing.JButton ModificarB;
     private javax.swing.JButton NuevoB;
     private javax.swing.JButton SalirB;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
    public void listar(){
-      AlumnoData list = new AlumnoData();
-      ArrayList <Alumno> lista = new ArrayList <>();
-      if(jRadioButton1.isSelected()){
-          list.listarAlumno(1);
+       //Método para rellenar la tabla
+      borrarFilas();
+      String est;
+      if(EstadoRB.isSelected()){
+          lista = list.listarAlumno(1);
+          est = "Activo";
       }else{
-          list.listarAlumno(0);
+         lista =  list.listarAlumno(0);
+         est = "Inactivo";
       }
-      
+       for (Alumno alumno : lista) {
+           modelo.addRow(new Object[] {alumno.getIdAlumno(),alumno.getDni(),alumno.getApellido(),alumno.getNombre(),alumno.getFechaNacimiento().toString(),est});
+       
+       }
+    }
+   
+    private void borrarFilas() {
+        int f = AlumnosTabla.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo.removeRow(f);
+        }
     }
  
 public void armarCabecera(){
@@ -162,7 +181,7 @@ public void armarCabecera(){
     modelo.addColumn("Nombre");
     modelo.addColumn("Fecha Nacimiento");
     modelo.addColumn("Estado");
-    jTable.setModel(modelo);
+    AlumnosTabla.setModel(modelo);
 }
 
 }

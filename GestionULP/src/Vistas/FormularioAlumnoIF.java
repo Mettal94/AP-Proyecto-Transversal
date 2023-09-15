@@ -2,20 +2,18 @@ package Vistas;
 
 import Entidades.Alumno;
 import AccesoADatos.AlumnoData;
+import static Vistas.mainMenu.mensaje;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
 
-
 public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
 
-    
     public FormularioAlumnoIF() {
         initComponents();
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -151,25 +149,24 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_SalirBActionPerformed
 
     private void GuardarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarBActionPerformed
-        try{
-            int dni = Integer.parseInt(DniT.getText());
+        //Boton de guardar alumno
+        try {
             String apellido = ApellidoT.getText();
             String nombre = NombreT.getText();
             java.util.Date fechaX = FechaNacimiento.getDate();
             LocalDate fecha = fechaX.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            int dni = Integer.parseInt(DniT.getText());
             boolean estado = true;
-            if (DniT.getText().isEmpty() || NombreT.getText().isEmpty() || FechaNacimiento.getDate().toString().isEmpty()){
-                JOptionPane.showMessageDialog(null, "No se pueden almacenar campos vacios");
-                return;
-            } else {
-                Alumno alumno = new Alumno(dni, apellido, nombre, fecha, estado);
-                AlumnoData x = new AlumnoData();
-                x.guardarAlumno(alumno);
-            }
             
-            
-        }catch(NumberFormatException ex){}
-        
+            Alumno alumno = new Alumno(dni, apellido, nombre, fecha, estado);
+            AlumnoData x = new AlumnoData();
+            x.guardarAlumno(alumno);
+        } catch (NumberFormatException ex) {
+            mensaje("Hay campos vacíos o valores mal ingresados, revisar el formulario."+ex.getMessage());
+        } catch(NullPointerException ex){
+            mensaje("Hay campos vacíos o valores mal ingresados, revisar el formulario."+ex.getMessage());
+        }
+
     }//GEN-LAST:event_GuardarBActionPerformed
 
 
@@ -185,4 +182,7 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
+
+    
+
 }

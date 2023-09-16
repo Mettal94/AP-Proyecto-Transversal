@@ -7,6 +7,7 @@ package Vistas;
 
 import AccesoADatos.AlumnoData;
 import Entidades.Alumno;
+import static Vistas.mainMenu.mensaje;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
@@ -122,9 +123,9 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EstadoRB)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(NuevoB)
@@ -133,11 +134,15 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NuevoB)
-                    .addComponent(jLabel1)
-                    .addComponent(EstadoRB))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(NuevoB))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(EstadoRB, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -162,10 +167,14 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // Botón de eliminar alumno
-        int fila = AlumnosTabla.getSelectedRow();
-        int id = (int) AlumnosTabla.getValueAt(fila, 0);
-        ad.eliminarAlumno(id);
-        listar();
+         try{
+            int fila = AlumnosTabla.getSelectedRow();
+            int id = (int) AlumnosTabla.getValueAt(fila, 0);
+            ad.eliminarAlumno(id);
+            listar();
+         }catch(ArrayIndexOutOfBoundsException ex){
+             mensaje("Primero debe seleccionar un alumno de la tabla. "+ex.getMessage());
+         }
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void NuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoBActionPerformed
@@ -183,7 +192,8 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-   public void listar() {
+  
+    public void listar() {
         //Método para rellenar la tabla
         borrarFilas();
         String est;
@@ -195,8 +205,8 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
             est = "Inactivo";
         }
         for (Alumno alumno : lista) {
-            modelo.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(), alumno.getNombre(), alumno.getFechaNacimiento().toString(), est});
-
+            modelo.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(),
+                                                            alumno.getNombre(), alumno.getFechaNacimiento().toString(), est});
         }
     }
 

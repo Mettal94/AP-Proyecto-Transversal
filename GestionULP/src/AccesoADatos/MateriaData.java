@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 public class MateriaData {
 
     private Connection con = null;
-
+    
     public MateriaData() {
 
         con = Conexion.getConexion();
@@ -66,12 +66,13 @@ public class MateriaData {
         return materia;
     }
 
-    public List<Materia> listarMaterias() {
+    public List<Materia> listarMaterias(int estado) {
         List<Materia> materias = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM materia WHERE estado = 1";
-            PreparedStatement ps = con.prepareStatement(sql);
+            String sql = "SELECT * FROM materia WHERE estado = ?";
+            PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, estado);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -79,7 +80,7 @@ public class MateriaData {
                 materia.setIdMateria(rs.getInt("idMateria"));
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAnio(rs.getInt("año"));
-                materia.setEstado(true);
+                materia.setEstado(rs.getInt("estado")== 1);
                 materias.add(materia);
             }
             ps.close();

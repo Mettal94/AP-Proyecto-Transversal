@@ -7,6 +7,11 @@ package Vistas;
 
 import AccesoADatos.AlumnoData;
 import Entidades.Alumno;
+import static Vistas.ManejoDeAlumnos.AlumnosTabla;
+import static Vistas.mainMenu.mensaje;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 /**
  *
@@ -14,11 +19,17 @@ import Entidades.Alumno;
  */
 public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
 
-   private Alumno alumno;
+    private Alumno alumno;
    
     AlumnoData ad = new AlumnoData();
-    public ModificarAlumnoIF() {
+    public ModificarAlumnoIF(Alumno alumno) {
+        this.alumno = alumno;
         initComponents();
+        this.DniT.setText(alumno.getDni()+"");
+        this.ApellidoT.setText(alumno.getApellido());
+        this.NombreT.setText(alumno.getNombre());
+        this.jFechaNac.setDate(Date.valueOf(alumno.getFechaNacimiento()));
+        
     }
 
     /**
@@ -33,7 +44,7 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jFechaNac = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         GuardarJB = new javax.swing.JButton();
         NombreT = new javax.swing.JTextField();
@@ -78,7 +89,7 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                            .addComponent(jFechaNac, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                             .addComponent(NombreT)
                             .addComponent(ApellidoT)
                             .addComponent(DniT))
@@ -103,7 +114,7 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(GuardarJB)
                 .addGap(16, 16, 16))
@@ -114,6 +125,16 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
 
     private void GuardarJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarJBActionPerformed
         // Botón para guardar los cambios y modificar el alumno
+        int id = alumno.getIdAlumno();
+        int dni = Integer.parseInt(DniT.getText());
+        String apellido = ApellidoT.getText();
+        String nombre = NombreT.getText();
+        LocalDate fechaNac = jFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Boolean estado = alumno.isEstado();
+        
+        Alumno modificado = new Alumno(id,dni,apellido,nombre,fechaNac,estado);
+        
+        ad.modificarAlumno(modificado);
         
     }//GEN-LAST:event_GuardarJBActionPerformed
 
@@ -123,10 +144,13 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
     private javax.swing.JTextField DniT;
     private javax.swing.JButton GuardarJB;
     private javax.swing.JTextField NombreT;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jFechaNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
+
+    
+
 }

@@ -41,7 +41,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jDateChooser1" pref="204" max="32767" attributes="0"/>
+                          <Component id="jFechaNac" pref="204" max="32767" attributes="0"/>
                           <Component id="NombreT" alignment="0" max="32767" attributes="0"/>
                           <Component id="ApellidoT" alignment="0" max="32767" attributes="0"/>
                           <Component id="DniT" alignment="0" max="32767" attributes="0"/>
@@ -74,7 +74,7 @@
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                  <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
+                  <Component id="jFechaNac" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="21" max="32767" attributes="0"/>
               <Component id="GuardarJB" min="-2" max="-2" attributes="0"/>
@@ -99,7 +99,7 @@
         <Property name="text" type="java.lang.String" value="Nombre"/>
       </Properties>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+    <Component class="com.toedter.calendar.JDateChooser" name="jFechaNac">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>

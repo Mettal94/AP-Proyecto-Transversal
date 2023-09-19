@@ -1,12 +1,21 @@
 package Vistas;
 
+import AccesoADatos.AlumnoData;
 import AccesoADatos.Conexion;
+import AccesoADatos.InscripcionData;
+import AccesoADatos.MateriaData;
 import javax.swing.JOptionPane;
 
 public class mainMenu extends javax.swing.JFrame {
 
+    private static AlumnoData aluD;
+    private static MateriaData matD;
+    private static InscripcionData insD;
     
     public mainMenu() {
+        this.aluD = new AlumnoData();
+        this.matD = new MateriaData();
+        this.insD = new InscripcionData();
         initComponents();
         Conexion.getConexion();
     }
@@ -134,7 +143,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void FormularioAlumnpoJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormularioAlumnpoJMActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        FormularioAlumnoIF faif = new FormularioAlumnoIF();
+        FormularioAlumnoIF faif = new FormularioAlumnoIF(aluD);
         faif.setVisible(true);
         Escritorio.add(faif);
         Escritorio.moveToFront(faif);
@@ -183,7 +192,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void ManejoAlumnosJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManejoAlumnosJMActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        ManejoDeAlumnos mdaif = new ManejoDeAlumnos();
+        ManejoDeAlumnos mdaif = new ManejoDeAlumnos(aluD);
         mdaif.setVisible(true);
         Escritorio.add(mdaif);
         Escritorio.moveToFront(mdaif);
@@ -224,7 +233,7 @@ public class mainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AlumnosPorMateriasJM;
-    private javax.swing.JDesktopPane Escritorio;
+    public static javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenuItem FormularioAlumnpoJM;
     private javax.swing.JMenuItem FormularioMateriaJM;
     private javax.swing.JMenuItem ManejoAlumnosJM;

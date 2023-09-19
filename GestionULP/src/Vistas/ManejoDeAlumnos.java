@@ -7,7 +7,9 @@ package Vistas;
 
 import AccesoADatos.AlumnoData;
 import Entidades.Alumno;
+import static Vistas.mainMenu.Escritorio;
 import static Vistas.mainMenu.mensaje;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
@@ -15,16 +17,16 @@ import javax.swing.table.DefaultTableModel;
 
 public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
 
+    private AlumnoData aluD;
     private DefaultTableModel modelo = new DefaultTableModel() {
         public boolean isCellEditable(int f, int c) {
             return false;
         }
     };
-
-    AlumnoData ad = new AlumnoData();
     List<Alumno> lista = new ArrayList<>();
 
-    public ManejoDeAlumnos() {
+    public ManejoDeAlumnos(AlumnoData aluD) {
+        this.aluD = aluD;
         initComponents();
         armarCabecera();
         EstadoRB.setSelected(true);
@@ -69,8 +71,21 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        AlumnosTabla.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(AlumnosTabla);
+        AlumnosTabla.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (AlumnosTabla.getColumnModel().getColumnCount() > 0) {
+            AlumnosTabla.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         SalirB.setBackground(new java.awt.Color(0, 153, 102));
         SalirB.setText("Salir");
@@ -81,6 +96,11 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
         });
 
         ModificarB.setText("Modificar");
+        ModificarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModificarBActionPerformed(evt);
+            }
+        });
 
         Eliminar.setText("Cambiar Estado");
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +177,7 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SalirBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirBActionPerformed
+        //Boton para cerrar la ventana
         this.dispose();
     }//GEN-LAST:event_SalirBActionPerformed
 
@@ -170,7 +191,7 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
          try{
             int fila = AlumnosTabla.getSelectedRow();
             int id = (int) AlumnosTabla.getValueAt(fila, 0);
-            ad.eliminarAlumno(id);
+            aluD.eliminarAlumno(id);
             listar();
          }catch(ArrayIndexOutOfBoundsException ex){
              mensaje("Primero debe seleccionar un alumno de la tabla. "+ex.getMessage());
@@ -179,11 +200,43 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
 
     private void NuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoBActionPerformed
         // Boton para agregar un alumno nuevo
+        FormularioAlumnoIF faif = new FormularioAlumnoIF(aluD);
+        faif.setVisible(true);
+        Escritorio.add(faif);
+        Escritorio.moveToFront(faif);
     }//GEN-LAST:event_NuevoBActionPerformed
+
+    private void ModificarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBActionPerformed
+        //Boton para modificar un alumno
+        int seleccion = AlumnosTabla.getSelectedRow();
+        if(seleccion < 0){
+            mensaje("Debe seleccionar un alumno primero.");
+            return;
+        }
+        int seleccionado = AlumnosTabla.getSelectedRow();
+        int id = (int) AlumnosTabla.getValueAt(seleccionado, 0);
+        int dni = (int) AlumnosTabla.getValueAt(seleccionado, 1);
+        String apellido = (String) AlumnosTabla.getValueAt(seleccionado, 2);
+        String nombre = (String) AlumnosTabla.getValueAt(seleccionado, 3);
+        LocalDate fechaNac = LocalDate.parse(AlumnosTabla.getValueAt(seleccionado, 4).toString()) ;
+        String est = (String) AlumnosTabla.getValueAt(seleccionado, 5);
+        Boolean estado;
+        if(est.equalsIgnoreCase("Activo")){
+            estado = true;
+        }else{
+            estado = false;
+        }
+        Alumno alumno = new Alumno(id,dni,apellido,nombre,fechaNac,estado);
+        
+        ModificarAlumnoIF edicion = new ModificarAlumnoIF(alumno);
+        edicion.setVisible(true);
+        Escritorio.add(edicion);
+        Escritorio.moveToFront(edicion);
+    }//GEN-LAST:event_ModificarBActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable AlumnosTabla;
+    public static javax.swing.JTable AlumnosTabla;
     private javax.swing.JButton Eliminar;
     private javax.swing.JRadioButton EstadoRB;
     private javax.swing.JButton ModificarB;
@@ -198,15 +251,15 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
         borrarFilas();
         String est;
         if (EstadoRB.isSelected()) {
-            lista = ad.listarAlumno(1);
+            lista = aluD.listarAlumno(1);
             est = "Activo";
         } else {
-            lista = ad.listarAlumno(0);
+            lista = aluD.listarAlumno(0);
             est = "Inactivo";
         }
         for (Alumno alumno : lista) {
             modelo.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(),
-                                                            alumno.getNombre(), alumno.getFechaNacimiento().toString(), est});
+                                      alumno.getNombre(), alumno.getFechaNacimiento().toString(), est});
         }
     }
 
@@ -222,7 +275,7 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
         modelo.addColumn("DNI");
         modelo.addColumn("Apellido");
         modelo.addColumn("Nombre");
-        modelo.addColumn("Fecha Nacimiento");
+        modelo.addColumn("Fecha de nacimiento");
         modelo.addColumn("Estado");
         AlumnosTabla.setModel(modelo);
     }

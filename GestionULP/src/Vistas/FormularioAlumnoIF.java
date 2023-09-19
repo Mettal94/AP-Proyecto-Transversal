@@ -10,7 +10,10 @@ import javax.swing.JOptionPane;
 
 public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
 
-    public FormularioAlumnoIF() {
+    private AlumnoData aluD;
+    
+    public FormularioAlumnoIF(AlumnoData aluD) {
+        this.aluD = aluD;
         initComponents();
     }
 
@@ -159,8 +162,8 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
             boolean estado = true;
             
             Alumno alumno = new Alumno(dni, apellido, nombre, fecha, estado);
-            AlumnoData x = new AlumnoData();
-            x.guardarAlumno(alumno);
+          
+            aluD.guardarAlumno(alumno);
         } catch (NumberFormatException ex) {
             mensaje("Hay campos vacíos o valores mal ingresados, revisar el formulario."+ex.getMessage());
         } catch(NullPointerException ex){

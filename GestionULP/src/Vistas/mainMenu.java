@@ -8,9 +8,9 @@ import javax.swing.JOptionPane;
 
 public class mainMenu extends javax.swing.JFrame {
 
-    private static AlumnoData aluD;
-    private static MateriaData matD;
-    private static InscripcionData insD;
+    private AlumnoData aluD;
+    private MateriaData matD;
+    private InscripcionData insD;
     
     public mainMenu() {
         this.aluD = new AlumnoData();

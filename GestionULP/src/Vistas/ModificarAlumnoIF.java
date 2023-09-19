@@ -20,9 +20,9 @@ import java.time.ZoneId;
 public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
 
     private Alumno alumno;
-   
-    AlumnoData ad = new AlumnoData();
-    public ModificarAlumnoIF(Alumno alumno) {
+   private AlumnoData aluD;
+    public ModificarAlumnoIF(AlumnoData aluD,Alumno alumno) {
+        this.aluD = aluD;
         this.alumno = alumno;
         initComponents();
         this.DniT.setText(alumno.getDni()+"");
@@ -134,7 +134,7 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
         
         Alumno modificado = new Alumno(id,dni,apellido,nombre,fechaNac,estado);
         
-        ad.modificarAlumno(modificado);
+        aluD.modificarAlumno(modificado);
         
     }//GEN-LAST:event_GuardarJBActionPerformed
 

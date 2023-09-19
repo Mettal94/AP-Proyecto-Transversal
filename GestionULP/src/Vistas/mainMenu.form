@@ -11,10 +11,18 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="FormularioAlumnpoJM">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Formulario de Alumno"/>
+                <Property name="text" type="java.lang.String" value="Altas de Alumnos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FormularioAlumnpoJMActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="ManejoAlumnosJM">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manejo de Alumos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ManejoAlumnosJMActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -45,14 +53,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ManejoInscripcionJMActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="ManejoAlumnosJM">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Manejo de Alumos"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ManejoAlumnosJMActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="ManipulacionNotasJM">

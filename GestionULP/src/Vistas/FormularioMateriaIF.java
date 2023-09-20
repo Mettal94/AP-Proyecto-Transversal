@@ -2,6 +2,7 @@ package Vistas;
 
 import AccesoADatos.MateriaData;
 import Entidades.Materia;
+import static Vistas.mainMenu.Escritorio;
 import static Vistas.mainMenu.mensaje;
 import java.util.ArrayList;
 import java.util.List;
@@ -198,22 +199,30 @@ private DefaultTableModel modelo = new DefaultTableModel();
     private void BDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BDeshabilitarActionPerformed
         try {
             int fila = TablaMateria.getSelectedRow();
-            int id = (int)TablaMateria.getValueAt(fila, 0);
-            MD.eliminarMateria(id);
+            MD.eliminarMateria(fila);
             listarMateria();
         } catch(ArrayIndexOutOfBoundsException ex){
              mensaje("Primero debe seleccionar una materia de la tabla. "+ex.getMessage());
          }
+         
     }//GEN-LAST:event_BDeshabilitarActionPerformed
 
     private void BModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BModificarActionPerformed
-//        try {
-//            int fila = TablaMateria.getSelectedRow();
-//            int materia = (int) TablaMateria.getValueAt(fila, 0);
-//            //MD.modificarMateria(materia);
-//        } catch (ArrayIndexOutOfBoundsException e) {
-//             mensaje("Primero debe seleccionar una materia de la tabla. "+e.getMessage());
-//        }
+        try{
+            
+            int fila = TablaMateria.getSelectedRow();
+            if (fila != -1) {
+                String nombre =(String)TablaMateria.getValueAt(fila, 0);
+                Integer nivelObj= (Integer)TablaMateria.getValueAt(fila, 0);
+
+            int nivel =(nivelObj !=null) ? nivelObj.intValue() : 0;
+                NombreT.setText(nombre);
+                AñoT.setText(String.valueOf(nivel));
+            }
+            
+        }catch(ArrayIndexOutOfBoundsException e){
+            mensaje("Debe seleccionar una materia");
+        }
     }//GEN-LAST:event_BModificarActionPerformed
 
 

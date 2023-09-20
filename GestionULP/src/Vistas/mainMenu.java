@@ -29,11 +29,11 @@ public class mainMenu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         FormularioAlumnpoJM = new javax.swing.JMenuItem();
+        ManejoAlumnosJM = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         FormularioMateriaJM = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         ManejoInscripcionJM = new javax.swing.JMenuItem();
-        ManejoAlumnosJM = new javax.swing.JMenuItem();
         ManipulacionNotasJM = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         AlumnosPorMateriasJM = new javax.swing.JMenuItem();
@@ -54,13 +54,21 @@ public class mainMenu extends javax.swing.JFrame {
 
         jMenu1.setText("Alumno");
 
-        FormularioAlumnpoJM.setText("Formulario de Alumno");
+        FormularioAlumnpoJM.setText("Altas de Alumnos");
         FormularioAlumnpoJM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FormularioAlumnpoJMActionPerformed(evt);
             }
         });
         jMenu1.add(FormularioAlumnpoJM);
+
+        ManejoAlumnosJM.setText("Manejo de Alumos");
+        ManejoAlumnosJM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ManejoAlumnosJMActionPerformed(evt);
+            }
+        });
+        jMenu1.add(ManejoAlumnosJM);
 
         jMenuBar1.add(jMenu1);
 
@@ -85,14 +93,6 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
         jMenu3.add(ManejoInscripcionJM);
-
-        ManejoAlumnosJM.setText("Manejo de Alumos");
-        ManejoAlumnosJM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ManejoAlumnosJMActionPerformed(evt);
-            }
-        });
-        jMenu3.add(ManejoAlumnosJM);
 
         ManipulacionNotasJM.setText("Manipulacion de Notas");
         ManipulacionNotasJM.addActionListener(new java.awt.event.ActionListener() {

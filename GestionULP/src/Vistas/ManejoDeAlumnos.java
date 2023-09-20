@@ -29,7 +29,7 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
         this.aluD = aluD;
         initComponents();
         armarCabecera();
-        EstadoRB.setSelected(true);
+        ActivosRB.setSelected(true);
         listar();
         //Con las últimas dos líneas, cuando se abra la ventana, se llenará la tabla con los alumnos activos
     }
@@ -43,14 +43,19 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        grupoEstado = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         AlumnosTabla = new javax.swing.JTable();
-        SalirB = new javax.swing.JButton();
         ModificarB = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
-        NuevoB = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        EstadoRB = new javax.swing.JRadioButton();
+        ActivosRB = new javax.swing.JRadioButton();
+        jLabel2 = new javax.swing.JLabel();
+        InactivosRB = new javax.swing.JRadioButton();
+        jLabel3 = new javax.swing.JLabel();
+        BusquedaT = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        BuscarB = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 102));
         setClosable(true);
@@ -80,20 +85,13 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        AlumnosTabla.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(AlumnosTabla);
-        AlumnosTabla.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (AlumnosTabla.getColumnModel().getColumnCount() > 0) {
             AlumnosTabla.getColumnModel().getColumn(0).setResizable(false);
+            AlumnosTabla.getColumnModel().getColumn(1).setResizable(false);
+            AlumnosTabla.getColumnModel().getColumn(2).setResizable(false);
+            AlumnosTabla.getColumnModel().getColumn(3).setResizable(false);
         }
-
-        SalirB.setBackground(new java.awt.Color(0, 153, 102));
-        SalirB.setText("Salir");
-        SalirB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SalirBActionPerformed(evt);
-            }
-        });
 
         ModificarB.setText("Modificar");
         ModificarB.addActionListener(new java.awt.event.ActionListener() {
@@ -109,18 +107,32 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
             }
         });
 
-        NuevoB.setText("Agregar Nuevo Alumno");
-        NuevoB.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Mostrar :");
+
+        grupoEstado.add(ActivosRB);
+        ActivosRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NuevoBActionPerformed(evt);
+                ActivosRBActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Estado");
+        jLabel2.setText("Activos");
 
-        EstadoRB.addActionListener(new java.awt.event.ActionListener() {
+        grupoEstado.add(InactivosRB);
+        InactivosRB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EstadoRBActionPerformed(evt);
+                InactivosRBActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Inactivos");
+
+        jLabel4.setText("Buscar por DNI :");
+
+        BuscarB.setText("Buscar");
+        BuscarB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarBActionPerformed(evt);
             }
         });
 
@@ -137,54 +149,59 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
                         .addGap(31, 31, 31)
                         .addComponent(Eliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(SalirB)
-                        .addGap(25, 25, 25))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ActivosRB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(InactivosRB, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EstadoRB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(NuevoB)
+                        .addGap(8, 8, 8)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BusquedaT, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BuscarB)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(NuevoB))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(EstadoRB, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SalirB)
-                    .addComponent(ModificarB)
-                    .addComponent(Eliminar))
-                .addGap(21, 21, 21))
+                    .addComponent(jLabel4)
+                    .addComponent(BusquedaT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BuscarB))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ModificarB)
+                        .addComponent(Eliminar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addComponent(InactivosRB, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(ActivosRB, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(16, 16, 16))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SalirBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirBActionPerformed
-        //Boton para cerrar la ventana
-        this.dispose();
-    }//GEN-LAST:event_SalirBActionPerformed
-
-    private void EstadoRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EstadoRBActionPerformed
+    private void ActivosRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActivosRBActionPerformed
         // Filtrar lista de alumnos
+        InactivosRB.setSelected(false);
         listar();
-    }//GEN-LAST:event_EstadoRBActionPerformed
+    }//GEN-LAST:event_ActivosRBActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // Botón de eliminar alumno
@@ -197,14 +214,6 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
              mensaje("Primero debe seleccionar un alumno de la tabla. "+ex.getMessage());
          }
     }//GEN-LAST:event_EliminarActionPerformed
-
-    private void NuevoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoBActionPerformed
-        // Boton para agregar un alumno nuevo
-        FormularioAlumnoIF faif = new FormularioAlumnoIF(aluD);
-        faif.setVisible(true);
-        Escritorio.add(faif);
-        Escritorio.moveToFront(faif);
-    }//GEN-LAST:event_NuevoBActionPerformed
 
     private void ModificarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBActionPerformed
         //Boton para modificar un alumno
@@ -219,47 +228,74 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
         String apellido = (String) AlumnosTabla.getValueAt(seleccionado, 2);
         String nombre = (String) AlumnosTabla.getValueAt(seleccionado, 3);
         LocalDate fechaNac = LocalDate.parse(AlumnosTabla.getValueAt(seleccionado, 4).toString()) ;
-        String est = (String) AlumnosTabla.getValueAt(seleccionado, 5);
-        Boolean estado;
-        if(est.equalsIgnoreCase("Activo")){
+        Boolean estado = true;
+        if(ActivosRB.isSelected()){
             estado = true;
-        }else{
+        }else if(InactivosRB.isSelected()){
             estado = false;
         }
         Alumno alumno = new Alumno(id,dni,apellido,nombre,fechaNac,estado);
-        
-        ModificarAlumnoIF edicion = new ModificarAlumnoIF(alumno);
+       
+        ModificarAlumnoIF edicion = new ModificarAlumnoIF(aluD,alumno);
         edicion.setVisible(true);
         Escritorio.add(edicion);
         Escritorio.moveToFront(edicion);
     }//GEN-LAST:event_ModificarBActionPerformed
 
+    private void InactivosRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InactivosRBActionPerformed
+        // Boton para mostrar los inactivos
+        ActivosRB.setSelected(false);
+        listar();
+    }//GEN-LAST:event_InactivosRBActionPerformed
+
+    private void BuscarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBActionPerformed
+        // Boton para buscar alumno
+        try{
+            int dni = Integer.parseInt(BusquedaT.getText());
+            borrarFilas();
+            Alumno buscado;
+             if(ActivosRB.isSelected()){
+              buscado = aluD.buscarAlumnoPorDni(dni, 1);
+               modelo.addRow(new Object[]{buscado.getIdAlumno(),buscado.getDni(),buscado.getApellido(),buscado.getNombre(),buscado.getFechaNacimiento().toString()});
+             }else if(InactivosRB.isSelected()){
+                 buscado = aluD.buscarAlumnoPorDni(dni, 0);
+               modelo.addRow(new Object[]{buscado.getIdAlumno(),buscado.getDni(),buscado.getApellido(),buscado.getNombre(),buscado.getFechaNacimiento().toString()});
+             }
+        }catch(NumberFormatException ex){
+            
+        }catch(NullPointerException ex){
+            
+        }   
+    }//GEN-LAST:event_BuscarBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton ActivosRB;
     public static javax.swing.JTable AlumnosTabla;
+    private javax.swing.JButton BuscarB;
+    private javax.swing.JTextField BusquedaT;
     private javax.swing.JButton Eliminar;
-    private javax.swing.JRadioButton EstadoRB;
+    private javax.swing.JRadioButton InactivosRB;
     private javax.swing.JButton ModificarB;
-    private javax.swing.JButton NuevoB;
-    private javax.swing.JButton SalirB;
+    private javax.swing.ButtonGroup grupoEstado;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
   
     public void listar() {
         //Método para rellenar la tabla
         borrarFilas();
-        String est;
-        if (EstadoRB.isSelected()) {
+        if (ActivosRB.isSelected()) {
             lista = aluD.listarAlumno(1);
-            est = "Activo";
-        } else {
+        } else if(InactivosRB.isSelected()){
             lista = aluD.listarAlumno(0);
-            est = "Inactivo";
         }
         for (Alumno alumno : lista) {
             modelo.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(),
-                                      alumno.getNombre(), alumno.getFechaNacimiento().toString(), est});
+                                      alumno.getNombre(), alumno.getFechaNacimiento().toString()});
         }
     }
 
@@ -276,7 +312,6 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
         modelo.addColumn("Apellido");
         modelo.addColumn("Nombre");
         modelo.addColumn("Fecha de nacimiento");
-        modelo.addColumn("Estado");
         AlumnosTabla.setModel(modelo);
     }
 

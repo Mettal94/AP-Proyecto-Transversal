@@ -210,16 +210,18 @@ private DefaultTableModel modelo = new DefaultTableModel();
     private void BModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BModificarActionPerformed
         try{
             
-            int fila = TablaMateria.getSelectedRow();
-            if (fila != -1) {
-                String nombre =(String)TablaMateria.getValueAt(fila, 0);
-                Integer nivelObj= (Integer)TablaMateria.getValueAt(fila, 0);
-
-            int nivel =(nivelObj !=null) ? nivelObj.intValue() : 0;
-                NombreT.setText(nombre);
-                AñoT.setText(String.valueOf(nivel));
-            }
-            
+            NombreT.setText(modelo.getValueAt(TablaMateria.getSelectedRow(), 0).toString());
+            AñoT.setText(modelo.getValueAt(TablaMateria.getSelectedRow(), 1).toString());
+            int filaseleccionada = TablaMateria.getSelectedRow();
+            if(filaseleccionada == 1){
+              
+            String nomMat = NombreT.getText();
+            int nivel = Integer.parseInt(AñoT.getText());
+//            
+//            Materia materia = new Materia(nomMat,nivel);
+//            MateriaData MD = new MateriaData();
+//            MD.modificarMateria(filaseleccionada);
+            }   
         }catch(ArrayIndexOutOfBoundsException e){
             mensaje("Debe seleccionar una materia");
         }

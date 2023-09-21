@@ -1,10 +1,25 @@
 package Vistas;
 
+import AccesoADatos.AlumnoData;
+import AccesoADatos.InscripcionData;
+import AccesoADatos.MateriaData;
+import Entidades.Alumno;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
 
+    private AlumnoData aluD;
+    private MateriaData matD;
+    private InscripcionData insD;
     
-    public ManejoInscripcionIF() {
+    public ManejoInscripcionIF(AlumnoData aluD, MateriaData matD, InscripcionData insD) {
+        this.aluD = aluD;
+        this.matD = matD;
+        this.insD = insD;
         initComponents();
+        cargarComboBox();
     }
 
     
@@ -13,7 +28,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox = new javax.swing.JComboBox<>();
+        alumnosJCB = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         MatInscriptasB = new javax.swing.JRadioButton();
         jLabel3 = new javax.swing.JLabel();
@@ -39,8 +54,8 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Seleccione un Alumno:");
 
-        jComboBox.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox.setForeground(new java.awt.Color(0, 0, 0));
+        alumnosJCB.setBackground(new java.awt.Color(255, 255, 255));
+        alumnosJCB.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -112,7 +127,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(28, 28, 28)
-                                .addComponent(jComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(alumnosJCB, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(InscribirB)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -128,7 +143,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(alumnosJCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -164,7 +179,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton MatInscriptasB;
     private javax.swing.JRadioButton MatNoInscriptasB;
     private javax.swing.JButton SalirB;
-    private javax.swing.JComboBox<String> jComboBox;
+    private javax.swing.JComboBox<String> alumnosJCB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -172,4 +187,17 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarComboBox(){
+        
+        List<Alumno> listaAlu = new ArrayList<>();
+        listaAlu = aluD.listarAlumno(1);
+        Collections.sort(listaAlu);
+        
+        for (Alumno alumno : listaAlu) {
+            alumnosJCB.addItem(alumno.toString());
+        }
+    }
+
 }
+

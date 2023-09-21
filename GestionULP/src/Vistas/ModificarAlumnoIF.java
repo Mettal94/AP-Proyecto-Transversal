@@ -7,7 +7,7 @@ package Vistas;
 
 import AccesoADatos.AlumnoData;
 import Entidades.Alumno;
-import static Vistas.ManejoDeAlumnos.AlumnosTabla;
+import static Vistas.mainMenu.Escritorio;
 import static Vistas.mainMenu.mensaje;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -20,16 +20,17 @@ import java.time.ZoneId;
 public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
 
     private Alumno alumno;
-   private AlumnoData aluD;
-    public ModificarAlumnoIF(AlumnoData aluD,Alumno alumno) {
+    private AlumnoData aluD;
+
+    public ModificarAlumnoIF(AlumnoData aluD, Alumno alumno) {
         this.aluD = aluD;
         this.alumno = alumno;
         initComponents();
-        this.DniT.setText(alumno.getDni()+"");
+        this.DniT.setText(alumno.getDni() + "");
         this.ApellidoT.setText(alumno.getApellido());
         this.NombreT.setText(alumno.getNombre());
         this.jFechaNac.setDate(Date.valueOf(alumno.getFechaNacimiento()));
-        
+
     }
 
     /**
@@ -78,9 +79,6 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(GuardarJB))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
@@ -93,7 +91,10 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
                             .addComponent(NombreT)
                             .addComponent(ApellidoT)
                             .addComponent(DniT))
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                        .addGap(0, 8, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(GuardarJB)))
                 .addGap(34, 34, 34))
         );
         layout.setVerticalGroup(
@@ -125,17 +126,28 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
 
     private void GuardarJBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarJBActionPerformed
         // Botón para guardar los cambios y modificar el alumno
-        int id = alumno.getIdAlumno();
-        int dni = Integer.parseInt(DniT.getText());
-        String apellido = ApellidoT.getText();
-        String nombre = NombreT.getText();
-        LocalDate fechaNac = jFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        Boolean estado = alumno.isEstado();
-        
-        Alumno modificado = new Alumno(id,dni,apellido,nombre,fechaNac,estado);
-        
-        aluD.modificarAlumno(modificado);
-        
+        try {
+            int id = alumno.getIdAlumno();
+            int dni = Integer.parseInt(DniT.getText());
+            String apellido = ApellidoT.getText();
+            String nombre = NombreT.getText();
+            LocalDate fechaNac = jFechaNac.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            Boolean estado = alumno.isEstado();
+
+            Alumno modificado = new Alumno(id, dni, apellido, nombre, fechaNac, estado);
+
+            aluD.modificarAlumno(modificado);
+            
+            this.dispose();
+            Escritorio.removeAll();
+            Escritorio.repaint();
+            ManejoDeAlumnos mdaif = new ManejoDeAlumnos(aluD);
+            
+        } catch (NullPointerException ex) {
+            mensaje("No pueden quedar campos vacíos. "+ex.getMessage());
+        } catch (NumberFormatException ex) {
+            mensaje("Debe ingresar un valor válido de DNI. "+ex.getMessage());
+        }
     }//GEN-LAST:event_GuardarJBActionPerformed
 
 
@@ -150,7 +162,5 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
-
-    
 
 }

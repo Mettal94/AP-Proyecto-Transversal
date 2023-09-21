@@ -198,7 +198,7 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ActivosRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActivosRBActionPerformed
-        // Filtrar lista de alumnos
+        // Mostrar alumnos activos (se muestran por defecto al abrir la ventana)
         InactivosRB.setSelected(false);
         listar();
     }//GEN-LAST:event_ActivosRBActionPerformed
@@ -217,29 +217,30 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
 
     private void ModificarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModificarBActionPerformed
         //Boton para modificar un alumno
-        int seleccion = AlumnosTabla.getSelectedRow();
-        if(seleccion < 0){
-            mensaje("Debe seleccionar un alumno primero.");
-            return;
+        try{
+            int seleccionado = AlumnosTabla.getSelectedRow();
+            int id = (int) AlumnosTabla.getValueAt(seleccionado, 0);
+            int dni = (int) AlumnosTabla.getValueAt(seleccionado, 1);
+            String apellido = (String) AlumnosTabla.getValueAt(seleccionado, 2);
+            String nombre = (String) AlumnosTabla.getValueAt(seleccionado, 3);
+            LocalDate fechaNac = LocalDate.parse(AlumnosTabla.getValueAt(seleccionado, 4).toString()) ;
+            Boolean estado = true;
+            if(ActivosRB.isSelected()){
+                estado = true;
+            }else if(InactivosRB.isSelected()){
+                estado = false;
+            }
+            Alumno alumno = new Alumno(id,dni,apellido,nombre,fechaNac,estado);
+
+            Escritorio.removeAll();
+            Escritorio.repaint();
+            ModificarAlumnoIF edicion = new ModificarAlumnoIF(aluD,alumno);
+            edicion.setVisible(true);
+            Escritorio.add(edicion);
+            Escritorio.moveToFront(edicion);
+        }catch(ArrayIndexOutOfBoundsException ex){
+            mensaje("Debe seleccionar un alumno de la tabla primero. "+ex.getMessage());
         }
-        int seleccionado = AlumnosTabla.getSelectedRow();
-        int id = (int) AlumnosTabla.getValueAt(seleccionado, 0);
-        int dni = (int) AlumnosTabla.getValueAt(seleccionado, 1);
-        String apellido = (String) AlumnosTabla.getValueAt(seleccionado, 2);
-        String nombre = (String) AlumnosTabla.getValueAt(seleccionado, 3);
-        LocalDate fechaNac = LocalDate.parse(AlumnosTabla.getValueAt(seleccionado, 4).toString()) ;
-        Boolean estado = true;
-        if(ActivosRB.isSelected()){
-            estado = true;
-        }else if(InactivosRB.isSelected()){
-            estado = false;
-        }
-        Alumno alumno = new Alumno(id,dni,apellido,nombre,fechaNac,estado);
-       
-        ModificarAlumnoIF edicion = new ModificarAlumnoIF(aluD,alumno);
-        edicion.setVisible(true);
-        Escritorio.add(edicion);
-        Escritorio.moveToFront(edicion);
     }//GEN-LAST:event_ModificarBActionPerformed
 
     private void InactivosRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InactivosRBActionPerformed
@@ -254,7 +255,7 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
             int dni = Integer.parseInt(BusquedaT.getText());
             borrarFilas();
             Alumno buscado;
-             if(ActivosRB.isSelected()){
+            if(ActivosRB.isSelected()){
               buscado = aluD.buscarAlumnoPorDni(dni, 1);
                modelo.addRow(new Object[]{buscado.getIdAlumno(),buscado.getDni(),buscado.getApellido(),buscado.getNombre(),buscado.getFechaNacimiento().toString()});
              }else if(InactivosRB.isSelected()){
@@ -262,9 +263,9 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
                modelo.addRow(new Object[]{buscado.getIdAlumno(),buscado.getDni(),buscado.getApellido(),buscado.getNombre(),buscado.getFechaNacimiento().toString()});
              }
         }catch(NumberFormatException ex){
-            
+            mensaje("Debe ingresar caracteres válidos");
         }catch(NullPointerException ex){
-            
+            mensaje("Ingrese el DNI a buscar");
         }   
     }//GEN-LAST:event_BuscarBActionPerformed
 

@@ -37,7 +37,7 @@ public class InscripcionData {
             ResultSet rs = ps.getGeneratedKeys();
             
             if(rs.next()){
-                insc.setIdInscripcion(rs.getInt("idInscripto"));
+                insc.setIdInscripcion(rs.getInt(1));
                 JOptionPane.showMessageDialog(null, "Inscripción exitosa");
             }
             ps.close();
@@ -56,10 +56,10 @@ public class InscripcionData {
             
             while(rs.next()){
                 Inscripcion insc = new Inscripcion();
-                insc.setIdInscripcion(rs.getInt("idInscripto"));
-                insc.setNota(rs.getDouble("nota"));
-                // insc.setIdAlumno(rs.get FALTA SABER QUE MIERDA HACER ACA
-                //insc.setIdMateria();
+                insc.setIdInscripcion(rs.getInt(1));
+                insc.setNota(rs.getDouble(2));
+                insc.setIdAlumno(aluData.buscarAlumno(rs.getInt(3)));
+                insc.setIdMateria(matData.buscarMateria(rs.getInt(4)));
                 
                 inscripciones.add(insc);
             }

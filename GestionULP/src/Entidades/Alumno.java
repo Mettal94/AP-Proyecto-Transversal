@@ -3,7 +3,7 @@ package Entidades;
 import java.time.LocalDate;
 
 
-public class Alumno {
+public class Alumno implements Comparable<Alumno> {
     private int idAlumno=-1;
     private int dni;
     private String apellido;
@@ -81,7 +81,16 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno{" + "idAlumno=" + idAlumno + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", estado=" + estado + '}';
+        return dni + " - "+apellido+", "+nombre;
+    }
+
+    @Override
+    public int compareTo(Alumno t) {
+        int compare = this.apellido.compareTo(t.apellido);
+        if(compare==0){
+            compare = this.nombre.compareTo(t.nombre);
+        }
+        return compare;
     }
     
     

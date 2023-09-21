@@ -165,7 +165,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void ManejoInscripcionJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManejoInscripcionJMActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        ManejoInscripcionIF miif = new ManejoInscripcionIF();
+        ManejoInscripcionIF miif = new ManejoInscripcionIF(aluD,matD,insD);
         miif.setVisible(true);
         Escritorio.add(miif);
         Escritorio.moveToFront(miif);

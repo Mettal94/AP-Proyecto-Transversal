@@ -1,6 +1,7 @@
 package AccesoADatos;
 
 import Entidades.Inscripcion;
+import Entidades.Materia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,19 +71,29 @@ public class InscripcionData {
         return inscripciones;
     }
     
-    public List<Inscripcion>obtenerInscripcionesPorAlumno(){
-         List<Inscripcion>inscripcionesPA = new ArrayList<>();
+    public List<Materia>obtenerInscripcionesPorAlumno(int id){
+         List<Materia>IPA = new ArrayList<>();
          try{
-           String sql = "SELECT * FROM inscripcion";
-            PreparedStatement ps = con.prepareStatement(sql);
+           String sql = "SELECT materia.idMateria, materia.nombre,materia.año FROM materia"
+                   + " JOIN inscripcion ON(materia.idMateria=inscripcion.idMateria) JOIN alumno ON (alumno.idAlumno = inscripcion.idAlumno)"
+                   + " WHERE alumno.idAlumno=?;";
+            PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             
-            //HAY QUE ACOMODAR BIEN TODO ESTO 
+            while(rs.next()){
+                Materia materia = new Materia();
+                materia.setIdMateria(rs.getInt(1));
+                materia.setNombre(rs.getString(2));
+                materia.setAnio(rs.getInt(3));
+                
+                IPA.add(materia);
+            }
           ps.close();
           }catch(SQLException ex){
              JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion "+ex.getMessage());
         }
-          return inscripcionesPA; 
+          return IPA; 
     }
    
 }

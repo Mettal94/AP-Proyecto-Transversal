@@ -4,9 +4,11 @@ import AccesoADatos.AlumnoData;
 import AccesoADatos.InscripcionData;
 import AccesoADatos.MateriaData;
 import Entidades.Alumno;
+import Entidades.Materia;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
 
@@ -14,12 +16,20 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
     private MateriaData matD;
     private InscripcionData insD;
     
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            return false;
+        }
+    };
     public ManejoInscripcionIF(AlumnoData aluD, MateriaData matD, InscripcionData insD) {
         this.aluD = aluD;
         this.matD = matD;
         this.insD = insD;
         initComponents();
+        armarCabecera();
         cargarComboBox();
+        MatInscriptasB.setSelected(true);
+        llenarTabla();
     }
 
     
@@ -27,6 +37,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        EstadoMateria = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         alumnosJCB = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -35,7 +46,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
         MatNoInscriptasB = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
+        MateriasTabla = new javax.swing.JTable();
         AnularInscB = new javax.swing.JButton();
         InscribirB = new javax.swing.JButton();
         SalirB = new javax.swing.JButton();
@@ -62,6 +73,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
         jLabel2.setText("Listado de Materias");
 
         MatInscriptasB.setBackground(new java.awt.Color(0, 153, 102));
+        EstadoMateria.add(MatInscriptasB);
         MatInscriptasB.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel3.setBackground(new java.awt.Color(0, 0, 0));
@@ -70,6 +82,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
         jLabel3.setText("Materias no Inscriptas");
 
         MatNoInscriptasB.setBackground(new java.awt.Color(0, 153, 102));
+        EstadoMateria.add(MatNoInscriptasB);
         MatNoInscriptasB.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
@@ -77,7 +90,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Materias Inscriptas");
 
-        jTable.setModel(new javax.swing.table.DefaultTableModel(
+        MateriasTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -88,7 +101,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable);
+        jScrollPane1.setViewportView(MateriasTabla);
 
         AnularInscB.setBackground(new java.awt.Color(0, 153, 102));
         AnularInscB.setText("Anular Inscripcion");
@@ -175,17 +188,18 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AnularInscB;
+    private javax.swing.ButtonGroup EstadoMateria;
     private javax.swing.JButton InscribirB;
     private javax.swing.JRadioButton MatInscriptasB;
     private javax.swing.JRadioButton MatNoInscriptasB;
+    private javax.swing.JTable MateriasTabla;
     private javax.swing.JButton SalirB;
-    private javax.swing.JComboBox<String> alumnosJCB;
+    private javax.swing.JComboBox<Alumno> alumnosJCB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
 
     private void cargarComboBox(){
@@ -195,9 +209,34 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
         Collections.sort(listaAlu);
         
         for (Alumno alumno : listaAlu) {
-            alumnosJCB.addItem(alumno.toString());
+            alumnosJCB.addItem(alumno);
         }
     }
 
+    private void armarCabecera(){
+        modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Año");
+        MateriasTabla.setModel(modelo);
+    }
+    
+    private void llenarTabla(){
+        borrarFilas();
+        Alumno alumno = (Alumno) alumnosJCB.getSelectedItem();
+        int selec = alumno.getIdAlumno();
+        
+        List<Materia>listaMat = new ArrayList<>();
+         listaMat = insD.obtenerInscripcionesPorAlumno(selec);
+         for (Materia materia : listaMat) {
+            modelo.addRow(new Object[]{materia.getIdMateria(),materia.getNombre(),materia.getAnio()});
+        }
+    }
+    
+    private void borrarFilas() {
+        int f = MateriasTabla.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo.removeRow(f);
+        }
+    }
 }
 

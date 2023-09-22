@@ -174,7 +174,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void ManipulacionNotasJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManipulacionNotasJMActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        ManipulacionNotasIF noif = new ManipulacionNotasIF();
+        ManipulacionNotasIF noif = new ManipulacionNotasIF(aluD,matD,insD);
         noif.setVisible(true);
         Escritorio.add(noif);
         Escritorio.moveToFront(noif);

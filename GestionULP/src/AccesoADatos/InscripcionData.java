@@ -48,12 +48,13 @@ public class InscripcionData {
         }
     }
 
-    public List<Inscripcion> obtenerInscripciones() {
+    public List<Inscripcion> obtenerInscripciones(int id) {
         List<Inscripcion> inscripciones = new ArrayList<>();
 
         try {
-            String sql = "SELECT * FROM inscripcion";
-            PreparedStatement ps = con.prepareStatement(sql);
+            String sql = "SELECT idInscripto, nota, idAlumno, idMateria FROM inscripcion WHERE idAlumno = ?";
+            PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

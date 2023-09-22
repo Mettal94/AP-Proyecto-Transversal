@@ -6,6 +6,7 @@ import AccesoADatos.MateriaData;
 import Entidades.Alumno;
 import Entidades.Inscripcion;
 import Entidades.Materia;
+import static Vistas.mainMenu.mensaje;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -212,26 +213,43 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
 
     private void InscribirBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InscribirBActionPerformed
         // Boton para inscribir un alumno a una materia
-        Alumno alumno = (Alumno) alumnosJCB.getSelectedItem();
-        
-        int seleccion = MateriasTabla.getSelectedRow();
-        int id = (int) MateriasTabla.getValueAt(seleccion, 0);
-        String nombre = (String) MateriasTabla.getValueAt(seleccion, 1);
-        int anio = (int) MateriasTabla.getValueAt(seleccion, 2);
-        Boolean estado = true;
-        Materia materia = new Materia(id,nombre,anio,estado);
-        
-        double nota = 0;
-        
-        Inscripcion insc = new Inscripcion(alumno,materia,nota);
-        
-        insD.guardarInscripcion(insc);
-        
-        llenarTabla();
+        try{
+            Alumno alumno = (Alumno) alumnosJCB.getSelectedItem();
+
+            int seleccion = MateriasTabla.getSelectedRow();
+            int id = (int) MateriasTabla.getValueAt(seleccion, 0);
+            String nombre = (String) MateriasTabla.getValueAt(seleccion, 1);
+            int anio = (int) MateriasTabla.getValueAt(seleccion, 2);
+            Boolean estado = true;
+            Materia materia = new Materia(id,nombre,anio,estado);
+
+            double nota = 0;
+
+            Inscripcion insc = new Inscripcion(alumno,materia,nota);
+
+            insD.guardarInscripcion(insc);
+
+            llenarTabla();
+        }catch(ArrayIndexOutOfBoundsException ex){
+            mensaje("Se debe seleccionar una materia");
+        }        
     }//GEN-LAST:event_InscribirBActionPerformed
 
     private void AnularInscBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnularInscBActionPerformed
         // Boton para desinscribir un alumno
+        try{
+            Alumno alumno = (Alumno) alumnosJCB.getSelectedItem();
+            int idAlu = alumno.getIdAlumno();
+
+            int fila = (int) MateriasTabla.getSelectedRow();
+            int idMat = (int) MateriasTabla.getValueAt(fila, 0);
+
+            insD.anularInscripcion(idMat, idAlu);
+
+            llenarTabla();
+        }catch(ArrayIndexOutOfBoundsException ex){
+            mensaje("Se debe seleccionar una materia");
+        }    
     }//GEN-LAST:event_AnularInscBActionPerformed
 
 

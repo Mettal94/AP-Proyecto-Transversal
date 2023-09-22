@@ -100,9 +100,8 @@ public class InscripcionData {
     public List<Materia> obtenerMateriasNOCursadas(int id) {
         List<Materia> IPNA = new ArrayList<>();
         try {
-            String sql = "SELECT materia.idMateria, materia.nombre,materia.año FROM materia"
-                    + " JOIN inscripcion ON(materia.idMateria=inscripcion.idMateria) JOIN alumno ON (alumno.idAlumno = inscripcion.idAlumno)"
-                    + " WHERE alumno.idAlumno != ? AND materia.estado = 1;";
+            String sql = "SELECT idMateria,nombre,año FROM materia WHERE idMateria"
+                    + " NOT IN (SELECT idMateria FROM inscripcion WHERE idAlumno = ?);";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -120,5 +119,23 @@ public class InscripcionData {
             mensaje("Error al acceder a la tabla inscripcion " + ex.getMessage());
         }
         return IPNA;
+    }
+    
+    public void anularInscripcion(int idMat, int idAlu){
+        try{
+            String sql ="DELETE FROM inscripcion WHERE inscripcion.idAlumno = ? AND inscripcion.idMateria = ?";
+            PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, idAlu);
+            ps.setInt(2, idMat);
+            
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                mensaje("Inscripcion anulada exitosamente");
+            } else {
+                mensaje("El alumno o la materia no existen");
+            }
+        }catch(SQLException ex){
+            mensaje("Error al acceder a la tabla inscripcion. "+ex.getMessage());
+        }    
     }
 }

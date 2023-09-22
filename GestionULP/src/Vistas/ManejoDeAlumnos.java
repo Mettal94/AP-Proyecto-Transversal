@@ -199,7 +199,6 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
 
     private void ActivosRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActivosRBActionPerformed
         // Mostrar alumnos activos (se muestran por defecto al abrir la ventana)
-        InactivosRB.setSelected(false);
         listar();
     }//GEN-LAST:event_ActivosRBActionPerformed
 
@@ -208,7 +207,12 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
          try{
             int fila = AlumnosTabla.getSelectedRow();
             int id = (int) AlumnosTabla.getValueAt(fila, 0);
-            aluD.eliminarAlumno(id);
+            
+            if(ActivosRB.isSelected()){
+                aluD.eliminarAlumno(id);
+            }else if(InactivosRB.isSelected()){
+                aluD.reactivarAlumno(id);
+            }
             listar();
          }catch(ArrayIndexOutOfBoundsException ex){
              mensaje("Primero debe seleccionar un alumno de la tabla. "+ex.getMessage());

@@ -1,6 +1,7 @@
 package AccesoADatos;
 
 import Entidades.Alumno;
+import static Vistas.mainMenu.mensaje;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -39,12 +40,12 @@ public class AlumnoData {
             if(rs.next()){
                 alumno.setIdAlumno(rs.getInt(1));
                 
-                JOptionPane.showMessageDialog(null, "Alumno añadido con éxito");
+                mensaje("Alumno añadido con éxito");
             }
             ps.close();
             
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno "+ex.getMessage());
+            mensaje("Error al acceder a la tabla alumno "+ex.getMessage());
         }
     }
     
@@ -68,11 +69,11 @@ public class AlumnoData {
                 alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setEstado(true);
             }else{
-                JOptionPane.showMessageDialog(null, "No existe el alumno");
+                mensaje("No existe el alumno");
             }
              ps.close();
         }catch(SQLException ex){
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno "+ex.getMessage());
+            mensaje("Error al acceder a la tabla alumno "+ex.getMessage());
         }
         return alumno;
     }
@@ -101,11 +102,11 @@ public class AlumnoData {
                     alumno.setEstado(false);
                 }
             }else{
-                JOptionPane.showMessageDialog(null,"No existe el alumno");
+                mensaje("No existe el alumno");
                 }
             ps.close();
         }catch(SQLException ex){
-             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno "+ex.getMessage());
+             mensaje("Error al acceder a la tabla alumno "+ex.getMessage());
         }
         return alumno;
     }
@@ -138,7 +139,7 @@ public class AlumnoData {
             }
             ps.close();
         }catch(SQLException ex){
-              JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno "+ex.getMessage());
+              mensaje("Error al acceder a la tabla alumno "+ex.getMessage());
         }
         return alumnos;
     }
@@ -157,12 +158,12 @@ public class AlumnoData {
             
             int exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Alumno modificado exitosamente.");
+                mensaje("Alumno modificado exitosamente.");
             } else {
-                JOptionPane.showMessageDialog(null, "El alumno no existe.");
+                mensaje("El alumno no existe.");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno " + ex.getMessage());
+            mensaje("Error al acceder a la tabla alumno " + ex.getMessage());
         }
     }
     
@@ -175,13 +176,32 @@ public class AlumnoData {
             int fila = ps.executeUpdate();
             
             if(fila == 1){
-                JOptionPane.showMessageDialog(null, "Se eliminó el alumno");
+                mensaje("Se eliminó el alumno");
             }else{
-                 JOptionPane.showMessageDialog(null, "El alumno no existe.");
+                 mensaje("El alumno no existe.");
             }
             ps.close();
         }catch(SQLException ex){
-               JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno "+ex.getMessage());
+               mensaje("Error al acceder a la tabla alumno "+ex.getMessage());
+        }
+    }
+    
+    public void reactivarAlumno(int id){
+        try{
+            String sql = "UPDATE alumno SET estado = 1 WHERE idAlumno = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            int fila = ps.executeUpdate();
+            
+            if(fila == 1){
+                mensaje("Reinscripción exitosa");
+            }else{
+                 mensaje("El alumno no existe");
+            }
+            ps.close();
+        }catch(SQLException ex){
+               mensaje("Error al acceder a la tabla alumno "+ex.getMessage());
         }
     }
 }

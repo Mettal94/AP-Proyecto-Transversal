@@ -34,11 +34,10 @@ public class mainMenu extends javax.swing.JFrame {
         ManejoAlumnosJM = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         FormularioMateriaJM = new javax.swing.JMenuItem();
+        AlumnosPorMateriasJM = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         ManejoInscripcionJM = new javax.swing.JMenuItem();
         ManipulacionNotasJM = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        AlumnosPorMateriasJM = new javax.swing.JMenuItem();
         SalirJM = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -76,13 +75,21 @@ public class mainMenu extends javax.swing.JFrame {
 
         jMenu2.setText("Materia");
 
-        FormularioMateriaJM.setText("Formulario de Materia");
+        FormularioMateriaJM.setText("Manejo de Materias");
         FormularioMateriaJM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FormularioMateriaJMActionPerformed(evt);
             }
         });
         jMenu2.add(FormularioMateriaJM);
+
+        AlumnosPorMateriasJM.setText("Alumnos por Materia");
+        AlumnosPorMateriasJM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AlumnosPorMateriasJMActionPerformed(evt);
+            }
+        });
+        jMenu2.add(AlumnosPorMateriasJM);
 
         jMenuBar1.add(jMenu2);
 
@@ -105,18 +112,6 @@ public class mainMenu extends javax.swing.JFrame {
         jMenu3.add(ManipulacionNotasJM);
 
         jMenuBar1.add(jMenu3);
-
-        jMenu4.setText("Consultas");
-
-        AlumnosPorMateriasJM.setText("Alumnos por Materia");
-        AlumnosPorMateriasJM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AlumnosPorMateriasJMActionPerformed(evt);
-            }
-        });
-        jMenu4.add(AlumnosPorMateriasJM);
-
-        jMenuBar1.add(jMenu4);
 
         SalirJM.setText("Salir");
         SalirJM.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -245,7 +240,6 @@ public class mainMenu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 

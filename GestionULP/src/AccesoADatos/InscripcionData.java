@@ -163,8 +163,32 @@ public class InscripcionData {
             } else {
                 mensaje("El alumno o la materia no existen");
             }
+            
+            ps.close();
         }catch(SQLException ex){
             mensaje("Error al acceder a la tabla inscripcion. "+ex.getMessage());
         }    
+    }
+    
+    public void cambiarNota(double nota, int idMat, int idAlu){
+        
+        try{
+            String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?;";
+            PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setDouble(1, nota);
+            ps.setInt(2, idAlu);
+            ps.setInt(3, idMat);
+            
+            int exito = ps.executeUpdate();
+            
+            if(exito == 1){
+                mensaje("Se actualizó la nota del alumno exitosamente.");
+            }else{
+                mensaje("Hubo un error en el proceso.");
+            }
+            ps.close();
+        }catch(SQLException ex){
+             mensaje("Error al acceder a la tabla inscripcion. "+ex.getMessage());
+        }
     }
 }

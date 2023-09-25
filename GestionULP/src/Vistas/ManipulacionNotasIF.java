@@ -5,9 +5,11 @@ import AccesoADatos.InscripcionData;
 import AccesoADatos.MateriaData;
 import Entidades.Alumno;
 import Entidades.Inscripcion;
+import static Vistas.mainMenu.mensaje;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -40,10 +42,9 @@ public class ManipulacionNotasIF extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         alumnosJCB = new javax.swing.JComboBox<>();
-        GuardarB = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         NotasTabla = new javax.swing.JTable();
-        SalirB2 = new javax.swing.JButton();
+        CalificarB = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 102));
         setClosable(true);
@@ -67,9 +68,6 @@ public class ManipulacionNotasIF extends javax.swing.JInternalFrame {
             }
         });
 
-        GuardarB.setBackground(new java.awt.Color(0, 153, 102));
-        GuardarB.setText("Guardar");
-
         NotasTabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -83,11 +81,10 @@ public class ManipulacionNotasIF extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(NotasTabla);
 
-        SalirB2.setBackground(new java.awt.Color(0, 153, 102));
-        SalirB2.setText("Salir");
-        SalirB2.addActionListener(new java.awt.event.ActionListener() {
+        CalificarB.setText("Editar nota");
+        CalificarB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SalirB2ActionPerformed(evt);
+                CalificarBActionPerformed(evt);
             }
         });
 
@@ -99,18 +96,17 @@ public class ManipulacionNotasIF extends javax.swing.JInternalFrame {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(GuardarB)
-                                .addGap(159, 159, 159)
-                                .addComponent(SalirB2)))
+                        .addComponent(jScrollPane1)
                         .addGap(35, 35, 35))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(alumnosJCB, 0, 265, Short.MAX_VALUE)
-                        .addGap(72, 72, 72))))
+                        .addGap(72, 72, 72))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(CalificarB)
+                        .addGap(48, 48, 48))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -122,29 +118,45 @@ public class ManipulacionNotasIF extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SalirB2)
-                    .addComponent(GuardarB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(CalificarB)
                 .addGap(33, 33, 33))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SalirB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalirB2ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_SalirB2ActionPerformed
-
     private void alumnosJCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alumnosJCBActionPerformed
         // Seleccion en el comboBox
+        llenarTabla();
      
     }//GEN-LAST:event_alumnosJCBActionPerformed
 
+    private void CalificarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalificarBActionPerformed
+        // Boton para calificar
+        try{
+            Alumno alumno = (Alumno)alumnosJCB.getSelectedItem();
+            int idAlu = alumno.getIdAlumno();
+            int fila = NotasTabla.getSelectedRow();
+            int idMat =(int) NotasTabla.getValueAt(fila, 0);
+            //int nota = (int) NotasTabla.getValueAt(fila, 3);
+            double nota = Double.parseDouble(JOptionPane.showInputDialog(this,"Ingrese la nota."));
+
+            insD.cambiarNota(nota, idMat, idAlu);
+
+            llenarTabla();
+        }catch(ArrayIndexOutOfBoundsException ex){
+            mensaje("Debe seleccionar una materia de la tabla. ");
+        }catch(NumberFormatException ex){
+            mensaje("Debe ingresar una nota correcta. ");
+        }catch(NullPointerException ex){
+            mensaje("Calificación sin éxito. ");
+        }    
+    }//GEN-LAST:event_CalificarBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton GuardarB;
+    private javax.swing.JButton CalificarB;
     private javax.swing.JTable NotasTabla;
-    private javax.swing.JButton SalirB2;
     private javax.swing.JComboBox<Alumno> alumnosJCB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -177,7 +189,15 @@ public class ManipulacionNotasIF extends javax.swing.JInternalFrame {
         List<Inscripcion> listaInsc = insD.obtenerInscripciones(id);
         
         for (Inscripcion inscripcion : listaInsc) {
-            modelo.addRow(new Object[]{inscripcion.getIdMateria().getIdMateria(),inscripcion.getIdMateria().getNombre(),inscripcion.getIdMateria().getAnio(),inscripcion.getNota()});
+            String sinNota = "Sin calificar";
+            Double nota = inscripcion.getNota();
+            if(nota>0){
+            modelo.addRow(new Object[]{inscripcion.getIdMateria().getIdMateria(),inscripcion.getIdMateria().getNombre(),
+                                        inscripcion.getIdMateria().getAnio(),inscripcion.getNota()});
+            }else{
+                modelo.addRow(new Object[]{inscripcion.getIdMateria().getIdMateria(),inscripcion.getIdMateria().getNombre(),
+                                        inscripcion.getIdMateria().getAnio(),sinNota});
+            }
         }
     }
     

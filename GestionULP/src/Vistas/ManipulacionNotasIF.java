@@ -30,7 +30,7 @@ public class ManipulacionNotasIF extends javax.swing.JInternalFrame {
         initComponents();
         armarCabecera();
         cargarComboBox();
-       
+        llenarTabla();
     }
 
     

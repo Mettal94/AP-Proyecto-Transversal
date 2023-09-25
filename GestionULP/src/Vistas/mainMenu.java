@@ -4,6 +4,8 @@ import AccesoADatos.AlumnoData;
 import AccesoADatos.Conexion;
 import AccesoADatos.InscripcionData;
 import AccesoADatos.MateriaData;
+import Entidades.Alumno;
+import Entidades.Materia;
 import javax.swing.JOptionPane;
 
 public class mainMenu extends javax.swing.JFrame {
@@ -183,7 +185,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void AlumnosPorMateriasJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlumnosPorMateriasJMActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        AlumnosPorMateriaIF apmif = new AlumnosPorMateriaIF();
+        AlumnosPorMateriaIF apmif = new AlumnosPorMateriaIF(aluD,matD,insD);
         apmif.setVisible(true);
         Escritorio.add(apmif);
         Escritorio.moveToFront(apmif);
@@ -250,4 +252,5 @@ public class mainMenu extends javax.swing.JFrame {
 public static void mensaje(String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje);
     }
+
 }

@@ -1,5 +1,6 @@
 package AccesoADatos;
 
+import Entidades.Alumno;
 import Entidades.Inscripcion;
 import Entidades.Materia;
 import static Vistas.mainMenu.mensaje;
@@ -21,6 +22,8 @@ public class InscripcionData {
     public InscripcionData() {
 
         con = Conexion.getConexion();
+        matData = new MateriaData();
+        aluData = new AlumnoData();
 
     }
 
@@ -71,6 +74,31 @@ public class InscripcionData {
             mensaje("Error al acceder a la tabla inscripcion " + ex.getMessage());
         }
         return inscripciones;
+    }
+    
+    public List<Inscripcion> obtenerAlumnosInscriptosPorMateria(int id){
+        List<Inscripcion> listaInscriptos = new ArrayList<>();
+        
+        try{
+            String sql = "SELECT idAlumno,idMateria,nota FROM inscripcion WHERE idMateria = ?;";
+            PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                Inscripcion insc = new Inscripcion();
+                insc.setIdAlumno(aluData.buscarAlumno(rs.getInt(1)));
+                insc.setIdMateria(matData.buscarMateria(rs.getInt(2)));
+                insc.setNota(rs.getDouble(3));
+                
+                listaInscriptos.add(insc);
+            }
+            ps.close();
+        }catch(SQLException ex){
+            mensaje("Error al acceder a la tabla de inscripción "+ex.getMessage());
+        }
+        return listaInscriptos;
     }
 
     public List<Materia> obtenerMateriasCursadas(int id) {

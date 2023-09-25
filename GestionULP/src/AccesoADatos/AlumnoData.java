@@ -51,22 +51,22 @@ public class AlumnoData {
     
     public Alumno buscarAlumno(int id){
         Alumno alumno = null;
-        String sql = "SELECT dni,apellido,nombre,fechaNacimiento FROM alumno WHERE idAlumno=? AND estado = 1";
+        String sql = "SELECT idAlumno,dni,apellido,nombre,fechaNacimiento FROM alumno WHERE idAlumno=?";
         
         PreparedStatement ps = null;
         
         try{
-            ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, id);
             
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
                 alumno = new Alumno();
-                alumno.setIdAlumno(id);
-                alumno.setDni(rs.getInt("dni"));
-                alumno.setApellido(rs.getString("apellido"));
-                alumno.setNombre(rs.getString("nombre"));
-                alumno.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+                alumno.setIdAlumno(rs.getInt(1));
+                alumno.setDni(rs.getInt(2));
+                alumno.setApellido(rs.getString(3));
+                alumno.setNombre(rs.getString(4));
+                alumno.setFechaNacimiento(rs.getDate(5).toLocalDate());
                 alumno.setEstado(true);
             }else{
                 mensaje("No existe el alumno");

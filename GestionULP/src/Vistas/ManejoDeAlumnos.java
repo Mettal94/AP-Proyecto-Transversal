@@ -312,7 +312,7 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
     }
 
     public void armarCabecera() {
-        modelo.addColumn("id");
+        modelo.addColumn("ID");
         modelo.addColumn("DNI");
         modelo.addColumn("Apellido");
         modelo.addColumn("Nombre");

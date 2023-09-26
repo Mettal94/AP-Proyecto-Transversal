@@ -51,6 +51,7 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
         NombreT = new javax.swing.JTextField();
         ApellidoT = new javax.swing.JTextField();
         DniT = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -69,6 +70,13 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
         GuardarJB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarJBActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -93,7 +101,9 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
                             .addComponent(DniT))
                         .addGap(0, 8, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(GuardarJB)))
                 .addGap(34, 34, 34))
         );
@@ -116,8 +126,10 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
                     .addComponent(jFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(GuardarJB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(GuardarJB)
+                    .addComponent(jButton1))
                 .addGap(16, 16, 16))
         );
 
@@ -137,18 +149,32 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
             Alumno modificado = new Alumno(id, dni, apellido, nombre, fechaNac, estado);
 
             aluD.modificarAlumno(modificado);
-            
-            this.dispose();
+
             Escritorio.removeAll();
             Escritorio.repaint();
             ManejoDeAlumnos mdaif = new ManejoDeAlumnos(aluD);
-            
+            mdaif.setVisible(true);
+            Escritorio.add(mdaif);
+            Escritorio.moveToFront(mdaif);
+
         } catch (NullPointerException ex) {
-            mensaje("No pueden quedar campos vacíos. "+ex.getMessage());
+            mensaje("No pueden quedar campos vacíos.");
+            System.out.println(ex.getMessage());
         } catch (NumberFormatException ex) {
-            mensaje("Debe ingresar un valor válido de DNI. "+ex.getMessage());
+            mensaje("Debe ingresar un valor válido de DNI.");
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_GuardarJBActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // Botón cancelar
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        ManejoDeAlumnos mdaif = new ManejoDeAlumnos(aluD);
+        mdaif.setVisible(true);
+        Escritorio.add(mdaif);
+        Escritorio.moveToFront(mdaif);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -156,6 +182,7 @@ public class ModificarAlumnoIF extends javax.swing.JInternalFrame {
     private javax.swing.JTextField DniT;
     private javax.swing.JButton GuardarJB;
     private javax.swing.JTextField NombreT;
+    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jFechaNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

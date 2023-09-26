@@ -1,6 +1,6 @@
 package Entidades;
 
-public class Materia {
+public class Materia implements Comparable<Materia>{
     private int idMateria=-1;
     private String nombre;
     private int anio;
@@ -57,6 +57,15 @@ public class Materia {
     @Override
     public String toString() {
         return nombre+" - "+anio+"° Año";
+    }
+
+    @Override
+    public int compareTo(Materia t) {
+        int compare = Integer.compare(this.anio, t.anio);
+        if(compare == 0){
+            compare = this.nombre.compareTo(t.nombre);
+        }
+        return compare;
     }
     
     

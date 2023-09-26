@@ -303,6 +303,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
         }else if (MatNoInscriptasB.isSelected()){
             listaMat=insD.obtenerMateriasNOCursadas(selec);
         }
+        Collections.sort(listaMat);
          for (Materia materia : listaMat) {
             modelo.addRow(new Object[]{materia.getIdMateria(),materia.getNombre(),materia.getAnio()});
         }

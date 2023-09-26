@@ -6,6 +6,7 @@ import AccesoADatos.MateriaData;
 import Entidades.Inscripcion;
 import Entidades.Materia;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -158,7 +159,7 @@ public class AlumnosPorMateriaIF extends javax.swing.JInternalFrame {
     private void llenarComboBox(){
         List<Materia> materias = new ArrayList<>();
         materias = matD.listarMaterias(1);
-        
+        Collections.sort(materias);
         for (Materia materia : materias) {
             MateriasJCB.addItem(materia);
         }

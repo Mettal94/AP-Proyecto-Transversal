@@ -11,6 +11,7 @@ import static Vistas.mainMenu.Escritorio;
 import static Vistas.mainMenu.mensaje;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -295,11 +296,13 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
     public void listar() {
         //Método para rellenar la tabla
         borrarFilas();
+        
         if (ActivosRB.isSelected()) {
             lista = aluD.listarAlumno(1);
         } else if(InactivosRB.isSelected()){
             lista = aluD.listarAlumno(0);
         }
+        Collections.sort(lista);
         for (Alumno alumno : lista) {
             modelo.addRow(new Object[]{alumno.getIdAlumno(), alumno.getDni(), alumno.getApellido(),
                                       alumno.getNombre(), alumno.getFechaNacimiento().toString()});

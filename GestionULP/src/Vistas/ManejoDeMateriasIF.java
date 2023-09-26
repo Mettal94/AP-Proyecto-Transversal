@@ -5,6 +5,7 @@ import Entidades.Materia;
 import static Vistas.mainMenu.Escritorio;
 import static Vistas.mainMenu.mensaje;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -199,6 +200,10 @@ public class ManejoDeMateriasIF extends javax.swing.JInternalFrame {
             Materia materia = new Materia(nombre,anio,estado);
             MateriaData md = new MateriaData();
             md.guardarMateria(materia);
+            
+            listar();
+            NombreT.setText("");
+            AñoT.setText("");
         } catch (NumberFormatException ex) {
             mensaje("Hay campos vacíos o valores mal ingresados, revisar el formulario."+ex.getMessage());
         } catch(NullPointerException ex){
@@ -282,6 +287,7 @@ public class ManejoDeMateriasIF extends javax.swing.JInternalFrame {
         } else if(inactivoRB.isSelected()){
             ListaMateria = matD.listarMaterias(0);
         }
+        Collections.sort(ListaMateria);
         for (Materia mate : ListaMateria) {
           modelo.addRow(new Object[]{mate.getIdMateria(),mate.getNombre(),mate.getAnio()});
       }

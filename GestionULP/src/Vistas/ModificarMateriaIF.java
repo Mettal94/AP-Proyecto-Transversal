@@ -74,6 +74,12 @@ public class ModificarMateriaIF extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(39, 39, 39))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
@@ -83,12 +89,6 @@ public class ModificarMateriaIF extends javax.swing.JInternalFrame {
                     .addComponent(nomT, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(anioT, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,7 +105,7 @@ public class ModificarMateriaIF extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -113,7 +113,13 @@ public class ModificarMateriaIF extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //Cancelar
-       this.dispose();
+        
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        ManejoDeMateriasIF manejo = new ManejoDeMateriasIF(matD);
+        manejo.setVisible(true);
+        Escritorio.add(manejo);
+        Escritorio.moveToFront(manejo);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -126,10 +132,17 @@ public class ModificarMateriaIF extends javax.swing.JInternalFrame {
             Materia mati = new Materia(id, nombre, anio, est);
             matD.modificarMateria(mati);
             this.dispose();
+
+            Escritorio.removeAll();
+            Escritorio.repaint();
+            ManejoDeMateriasIF manejo = new ManejoDeMateriasIF(matD);
+            manejo.setVisible(true);
+            Escritorio.add(manejo);
+            Escritorio.moveToFront(manejo);
         } catch (NumberFormatException ex) {
-            mensaje("Valor no valido" + ERROR);
+            mensaje("Valor no valido. " + ex.getMessage());
         } catch (NullPointerException ex) {
-            mensaje("Campos vacios" + ERROR);
+            mensaje("Campos vacios. " + ex.getMessage());
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -76,7 +76,7 @@ public class ManejoDeMateriasIF extends javax.swing.JInternalFrame {
             }
         });
 
-        BDeshabilitar.setText("Deshabilitar");
+        BDeshabilitar.setText("Cambiar Estado");
         BDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BDeshabilitarActionPerformed(evt);
@@ -210,7 +210,12 @@ public class ManejoDeMateriasIF extends javax.swing.JInternalFrame {
     private void BDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BDeshabilitarActionPerformed
         try {
             int fila = TablaMateria.getSelectedRow();
-            matD.eliminarMateria(fila);
+            int id = (int) TablaMateria.getValueAt(fila, 0);
+            if(activoRB.isSelected()){
+                matD.eliminarMateria(id);
+            }else if(inactivoRB.isSelected()){
+                matD.reactivarMateria(id);
+            }
             listar();
         } catch(ArrayIndexOutOfBoundsException ex){
              mensaje("Debe seleccionar una materia de la tabla."+ ERROR);
@@ -241,12 +246,12 @@ public class ManejoDeMateriasIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_BModificarActionPerformed
 
     private void activoRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activoRBActionPerformed
-        BDeshabilitar.setEnabled(true);
+
         listar();
     }//GEN-LAST:event_activoRBActionPerformed
 
     private void inactivoRBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inactivoRBActionPerformed
-        BDeshabilitar.setEnabled(false);
+
         listar();
     }//GEN-LAST:event_inactivoRBActionPerformed
 

@@ -131,4 +131,23 @@ public class MateriaData {
             mensaje("Error al acceder a la tabla materia " + ex.getMessage());
         }
     }
+    
+    public void reactivarMateria(int id){
+        try {
+            String sql = "UPDATE materia SET estado = 1 WHERE idMateria = ?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int fila = ps.executeUpdate();
+
+            if (fila == 1) {
+                mensaje("Se reactivó la materia.");
+            } else {
+                mensaje("La materia no existe.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            mensaje("Error al acceder a la tabla materia " + ex.getMessage());
+        }
+    }
 }

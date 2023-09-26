@@ -164,6 +164,11 @@ public class FormularioAlumnoIF extends javax.swing.JInternalFrame {
             Alumno alumno = new Alumno(dni, apellido, nombre, fecha, estado);
           
             aluD.guardarAlumno(alumno);
+            
+            ApellidoT.setText("");
+            NombreT.setText("");
+            DniT.setText("");
+            FechaNacimiento.setDate(null);
         } catch (NumberFormatException ex) {
             mensaje("Hay campos vacíos o valores mal ingresados, revisar el formulario."+ex.getMessage());
         } catch(NullPointerException ex){

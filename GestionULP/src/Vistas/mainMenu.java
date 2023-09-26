@@ -13,7 +13,7 @@ public class mainMenu extends javax.swing.JFrame {
     private AlumnoData aluD;
     private MateriaData matD;
     private InscripcionData insD;
-    
+
     public mainMenu() {
         this.aluD = new AlumnoData();
         this.matD = new MateriaData();
@@ -22,7 +22,6 @@ public class mainMenu extends javax.swing.JFrame {
         Conexion.getConexion();
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -150,19 +149,10 @@ public class mainMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_SalirJMMouseClicked
 
-    private void FormularioMateriaJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormularioMateriaJMActionPerformed
-        Escritorio.removeAll();
-        Escritorio.repaint();
-        ManejoDeMateriasIF fmif = new ManejoDeMateriasIF(matD);
-        fmif.setVisible(true);
-        Escritorio.add(fmif);
-        Escritorio.moveToFront(fmif);
-    }//GEN-LAST:event_FormularioMateriaJMActionPerformed
-
     private void ManejoInscripcionJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManejoInscripcionJMActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        ManejoInscripcionIF miif = new ManejoInscripcionIF(aluD,matD,insD);
+        ManejoInscripcionIF miif = new ManejoInscripcionIF(aluD, matD, insD);
         miif.setVisible(true);
         Escritorio.add(miif);
         Escritorio.moveToFront(miif);
@@ -171,7 +161,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void ManipulacionNotasJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ManipulacionNotasJMActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        ManipulacionNotasIF noif = new ManipulacionNotasIF(aluD,matD,insD);
+        ManipulacionNotasIF noif = new ManipulacionNotasIF(aluD, matD, insD);
         noif.setVisible(true);
         Escritorio.add(noif);
         Escritorio.moveToFront(noif);
@@ -180,7 +170,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void AlumnosPorMateriasJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlumnosPorMateriasJMActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        AlumnosPorMateriaIF apmif = new AlumnosPorMateriaIF(aluD,matD,insD);
+        AlumnosPorMateriaIF apmif = new AlumnosPorMateriaIF(aluD, matD, insD);
         apmif.setVisible(true);
         Escritorio.add(apmif);
         Escritorio.moveToFront(apmif);
@@ -195,7 +185,15 @@ public class mainMenu extends javax.swing.JFrame {
         Escritorio.moveToFront(mdaif);
     }//GEN-LAST:event_ManejoAlumnosJMActionPerformed
 
-    
+    private void FormularioMateriaJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormularioMateriaJMActionPerformed
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        ManejoDeMateriasIF fmif = new ManejoDeMateriasIF(matD);
+        fmif.setVisible(true);
+        Escritorio.add(fmif);
+        Escritorio.moveToFront(fmif);
+    }//GEN-LAST:event_FormularioMateriaJMActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -232,7 +230,7 @@ public class mainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem AlumnosPorMateriasJM;
     public static javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenuItem FormularioAlumnpoJM;
-    private javax.swing.JMenuItem FormularioMateriaJM;
+    public static javax.swing.JMenuItem FormularioMateriaJM;
     private javax.swing.JMenuItem ManejoAlumnosJM;
     private javax.swing.JMenuItem ManejoInscripcionJM;
     private javax.swing.JMenuItem ManipulacionNotasJM;
@@ -243,7 +241,7 @@ public class mainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 
-public static void mensaje(String mensaje) {
+    public static void mensaje(String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje);
     }
 

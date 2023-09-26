@@ -256,6 +256,9 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
     private void BuscarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarBActionPerformed
         // Boton para buscar alumno
         try{
+            if(BusquedaT.getText().isEmpty()){
+                listar();
+            }
             int dni = Integer.parseInt(BusquedaT.getText());
             borrarFilas();
             Alumno buscado;
@@ -266,10 +269,11 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
                  buscado = aluD.buscarAlumnoPorDni(dni, 0);
                modelo.addRow(new Object[]{buscado.getIdAlumno(),buscado.getDni(),buscado.getApellido(),buscado.getNombre(),buscado.getFechaNacimiento().toString()});
              }
+            BusquedaT.setText("");
         }catch(NumberFormatException ex){
-            mensaje("Debe ingresar caracteres válidos");
+          //  mensaje("Debe ingresar caracteres válidos");
         }catch(NullPointerException ex){
-            mensaje("Ingrese el DNI a buscar");
+            //listar();
         }   
     }//GEN-LAST:event_BuscarBActionPerformed
 

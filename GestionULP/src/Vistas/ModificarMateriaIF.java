@@ -7,6 +7,7 @@ package Vistas;
 
 import AccesoADatos.MateriaData;
 import Entidades.Materia;
+import static Vistas.mainMenu.Escritorio;
 import static Vistas.mainMenu.mensaje;
 
 /**
@@ -111,11 +112,12 @@ public class ModificarMateriaIF extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.dispose();
+        //Cancelar
+       this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        //Modificar
         try {
             int id = modificar.getIdMateria();
             String nombre = nomT.getText();
@@ -123,6 +125,7 @@ public class ModificarMateriaIF extends javax.swing.JInternalFrame {
             boolean est = modificar.isEstado();
             Materia mati = new Materia(id, nombre, anio, est);
             matD.modificarMateria(mati);
+            this.dispose();
         } catch (NumberFormatException ex) {
             mensaje("Valor no valido" + ERROR);
         } catch (NullPointerException ex) {

@@ -229,9 +229,7 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
             String nombre = (String) AlumnosTabla.getValueAt(seleccionado, 3);
             LocalDate fechaNac = LocalDate.parse(AlumnosTabla.getValueAt(seleccionado, 4).toString()) ;
             Boolean estado = true;
-            if(ActivosRB.isSelected()){
-                estado = true;
-            }else if(InactivosRB.isSelected()){
+            if(InactivosRB.isSelected()){
                 estado = false;
             }
             Alumno alumno = new Alumno(id,dni,apellido,nombre,fechaNac,estado);

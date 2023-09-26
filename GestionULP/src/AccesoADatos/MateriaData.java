@@ -106,6 +106,8 @@ public class MateriaData {
             } else {
                 mensaje("La materia no existe.");
             }
+            
+            ps.close();
         } catch (SQLException ex) {
             mensaje("Error al acceder a la tabla materia " + ex.getMessage());
         }

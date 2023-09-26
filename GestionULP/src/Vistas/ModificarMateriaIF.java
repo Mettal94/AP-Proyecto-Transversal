@@ -14,17 +14,19 @@ import static Vistas.mainMenu.mensaje;
  * @author Servidor
  */
 public class ModificarMateriaIF extends javax.swing.JInternalFrame {
+
     private MateriaData matD;
     private Materia modificar;
+
     /**
      * Creates new form ModificarMateriaIF
      */
-    public ModificarMateriaIF(MateriaData matD, Materia modoficar) {
-        this.matD=matD;
-        this.modificar=modificar;
+    public ModificarMateriaIF(MateriaData matD, Materia modificar) {
+        this.matD = matD;
+        this.modificar = modificar;
         initComponents();
-        nomT.setText(modificar.getNombre());
-        anioT.setText(modificar.getAnio()+" ");
+        this.nomT.setText(modificar.getNombre());
+        this.anioT.setText(modificar.getAnio() + " ");
     }
 
     /**
@@ -113,19 +115,19 @@ public class ModificarMateriaIF extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    try{    
-        int id = modificar.getIdMateria();
-        String nombre = nomT.getText();
-        int anio = Integer.parseInt(anioT.getText());
-        boolean est = modificar.isEstado();
-        Materia mati = new Materia(id,nombre,anio,est);        
-        matD.modificarMateria(mati);
-    }catch(NumberFormatException ex){
-        mensaje("Valor no valido"+ ERROR);
-    }catch(NullPointerException ex){
-        mensaje("Campos vacios"+ ERROR);
-    }
+
+        try {
+            int id = modificar.getIdMateria();
+            String nombre = nomT.getText();
+            int anio = Integer.parseInt(anioT.getText());
+            boolean est = modificar.isEstado();
+            Materia mati = new Materia(id, nombre, anio, est);
+            matD.modificarMateria(mati);
+        } catch (NumberFormatException ex) {
+            mensaje("Valor no valido" + ERROR);
+        } catch (NullPointerException ex) {
+            mensaje("Campos vacios" + ERROR);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

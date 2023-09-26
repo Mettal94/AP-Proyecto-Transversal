@@ -31,6 +31,7 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
         armarCabecera();
         cargarComboBox();
         MatInscriptasB.setSelected(true);
+        InscribirB.setEnabled(false);
         llenarTabla();
     }
 
@@ -198,11 +199,15 @@ public class ManejoInscripcionIF extends javax.swing.JInternalFrame {
 
     private void MatInscriptasBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MatInscriptasBActionPerformed
         // Boton de materias inscriptas
+        InscribirB.setEnabled(false);
+        AnularInscB.setEnabled(true);
         llenarTabla();
     }//GEN-LAST:event_MatInscriptasBActionPerformed
 
     private void MatNoInscriptasBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MatNoInscriptasBActionPerformed
         // Boton de materias no inscriptas
+        AnularInscB.setEnabled(false);
+        InscribirB.setEnabled(true);
         llenarTabla();
     }//GEN-LAST:event_MatNoInscriptasBActionPerformed
 

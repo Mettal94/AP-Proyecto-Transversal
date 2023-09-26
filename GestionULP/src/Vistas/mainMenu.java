@@ -153,7 +153,7 @@ public class mainMenu extends javax.swing.JFrame {
     private void FormularioMateriaJMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FormularioMateriaJMActionPerformed
         Escritorio.removeAll();
         Escritorio.repaint();
-        FormularioMateriaIF fmif = new FormularioMateriaIF(matD);
+        ManejoDeMateriasIF fmif = new ManejoDeMateriasIF(matD);
         fmif.setVisible(true);
         Escritorio.add(fmif);
         Escritorio.moveToFront(fmif);

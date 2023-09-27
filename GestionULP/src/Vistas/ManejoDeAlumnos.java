@@ -269,10 +269,13 @@ public class ManejoDeAlumnos extends javax.swing.JInternalFrame {
                modelo.addRow(new Object[]{buscado.getIdAlumno(),buscado.getDni(),buscado.getApellido(),buscado.getNombre(),buscado.getFechaNacimiento().toString()});
              }
             BusquedaT.setText("");
+        
         }catch(NumberFormatException ex){
-          //  mensaje("Debe ingresar caracteres válidos");
+            mensaje("Debe ingresar caracteres válidos");
+            BusquedaT.setText("");
+            listar();
         }catch(NullPointerException ex){
-            //listar();
+            listar();
         }   
     }//GEN-LAST:event_BuscarBActionPerformed
 

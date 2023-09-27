@@ -138,9 +138,12 @@ public class ManipulacionNotasIF extends javax.swing.JInternalFrame {
             int idAlu = alumno.getIdAlumno();
             int fila = NotasTabla.getSelectedRow();
             int idMat =(int) NotasTabla.getValueAt(fila, 0);
-            //int nota = (int) NotasTabla.getValueAt(fila, 3);
-            double nota = Double.parseDouble(JOptionPane.showInputDialog(this,"Ingrese la nota."));
-
+            String ingreso = JOptionPane.showInputDialog(this,"Ingrese la nota.");
+            double nota = Double.parseDouble(ingreso);
+            while(nota<1||nota>10){
+                mensaje("La nota debe estar entre 1 y 10");
+                return;
+            }
             insD.cambiarNota(nota, idMat, idAlu);
 
             llenarTabla();

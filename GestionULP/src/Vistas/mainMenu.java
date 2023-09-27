@@ -20,6 +20,8 @@ public class mainMenu extends javax.swing.JFrame {
         this.insD = new InscripcionData();
         initComponents();
         Conexion.getConexion();
+        setResizable(false);
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
